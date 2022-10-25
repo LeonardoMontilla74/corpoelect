@@ -1,16 +1,10 @@
 import { hash } from 'bcrypt';
-import { Request, Response, Router } from 'express';
 import { UserModel } from '../interfaces/interfaces';
 import Users from '../models/Users';
 
-const router = Router();
-
-// eslint-disable-next-line consistent-return
-router.post('/', async (req: Request, res: Response) => {
-  const user: UserModel = req.body;
-
+async function registerController(user: UserModel) {
   const checkExist = await Users.findOne({ where: { name: user.name } });
-  if (checkExist) return res.status(200).json(checkExist);
+  if (checkExist) return { msg: 'El usuario ya existe' };
 
   try {
     const passEncrypt = await hash((user.password as string), 8);
@@ -18,12 +12,12 @@ router.post('/', async (req: Request, res: Response) => {
       name: user.name,
       password: passEncrypt,
     });
-    if (result) res.status(201).json(result);
+    return result;
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error al crear el usuario', error);
-    res.status(500).json({ msg: 'Error al crear el usuario' });
+    return { msg: 'Error al crear el usuario' };
   }
-});
+}
 
-export default router;
+export default registerController;
