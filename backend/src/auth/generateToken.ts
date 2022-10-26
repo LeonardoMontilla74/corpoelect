@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { sign } from 'jsonwebtoken';
-import { UserModel } from '../interfaces/interfaces';
+import { UserModel } from '../interfaces';
 
 const { ADMIN_TOKEN, USER_TOKEN } = process.env;
 

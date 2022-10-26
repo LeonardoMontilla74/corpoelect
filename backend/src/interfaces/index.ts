@@ -4,3 +4,7 @@ export interface UserModel {
   rol?: 'admin' | 'user'
   auth?: boolean
 }
+
+export interface MsgError {
+  msg: string
+}
