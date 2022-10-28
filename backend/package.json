@@ -4,7 +4,9 @@
   "description": "API de consultas de Corpoelect",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./index.ts"
+    "dev": "nodemon ./index.ts",
+    "build": "tsc",
+    "start": "nodemon ./dist/index.js"
   },
   "keywords": [
     "API-REST"
