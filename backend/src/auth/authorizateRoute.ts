@@ -11,13 +11,12 @@ function authorizateRoute(req: Request, res: Response, next: NextFunction) {
   if (!token) return res.status(403).json(handleError('No se recibió el token'));
 
   try {
-    const isAuth = verify((token as string), (ADMIN_TOKEN as string)) as UserModel;
-    req.body = isAuth;
+    verify((token as string), (ADMIN_TOKEN as string)) as UserModel;
     next();
+    return res.status(200);
   } catch (error) {
     return res.status(403).json(handleError('No esta autorizado'));
   }
-  return res.status(200);
 }
 
 export default authorizateRoute;
