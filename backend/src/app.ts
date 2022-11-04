@@ -1,8 +1,8 @@
-import express from 'express';
+import express, { Application } from 'express';
 import cors from 'cors';
 import router from './routes';
 
-const server = express();
+const server: Application = express();
 
 server.use(cors());
 server.use(express.urlencoded({ extended: true, limit: '80mb' }));
