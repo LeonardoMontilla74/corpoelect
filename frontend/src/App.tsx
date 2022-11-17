@@ -1,15 +1,14 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import Register from './pages/Register';
 
 function App() {
   return (
-    <div>
-      <h1>
-        Bienvenido a la App de Corpoelect
-        {' '}
-      </h1>
-      <Button variant="primary">Iniciar sesión</Button>
-    </div>
+    <Routes>
+      <Route path="/" element={<Register />} />
+      <Route path="/home" element={<Home />} />
+    </Routes>
   );
 }
 
