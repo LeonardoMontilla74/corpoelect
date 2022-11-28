@@ -22,6 +22,7 @@ function StoreProvider({ children }: ChildrenProps) {
 
   async function register({ name, password }: User) {
     const result = await axios.post('/register', { name, password });
+    console.log(result);
     setState({
       ...state,
       userActive: result.data,
@@ -31,6 +32,7 @@ function StoreProvider({ children }: ChildrenProps) {
 
   async function login({ name, password }: User) {
     const result = await axios.post('/login', { name, password });
+    console.log(result);
     setState({
       ...state,
       userActive: result.data.user,

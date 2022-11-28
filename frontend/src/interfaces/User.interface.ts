@@ -3,6 +3,7 @@ export interface User {
   password: string | number
   rol?: 'admin' | 'user'
   auth?: boolean
+  msg?: string
 }
 
 export interface InitialState {

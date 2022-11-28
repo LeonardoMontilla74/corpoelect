@@ -14,7 +14,7 @@ router.post('/', async (req: Request, res: Response, nex: NextFunction): Promise
     if (user.name && user.password) {
       const userDB = await loginController(user);
       if (userDB) {
-        const token = await generateToken(userDB);
+        const token = await generateToken(userDB as UserModel);
         return res.status(200).json({ token, userDB });
       }
       const msg = handleError('Usuario o contraseña incorrectos');

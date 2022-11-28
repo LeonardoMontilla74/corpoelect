@@ -2,17 +2,17 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 
-function Register() {
+function Login() {
   const navigate = useNavigate();
-  const { register } = useContext(UserContext);
+  const { login } = useContext(UserContext);
 
   const [input, setInput] = useState({
     name: '',
     password: '',
   });
 
-  function registerUser() {
-    register(input);
+  function loginUser() {
+    login(input);
     navigate('/home');
   }
 
@@ -22,13 +22,17 @@ function Register() {
         <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
           <div className="card border-0 shadow rounded-3 my-5">
             <div className="card-body p-4 p-sm-5">
-              <h5 className="card-title text-black text-center mb-5 fw-bold fs-4">Registrate</h5>
-              <form onSubmit={registerUser}>
+              <h2 className="text-black">
+                Bienvenido a la app de
+                {' '}
+                <h1 className="text-black">Corpoelect</h1>
+              </h2>
+              <hr />
+              <form onSubmit={loginUser}>
                 <div className="form-group mb-3">
-                  <p className="text-black">Escribe tu nombre y apellido</p>
                   <input
                     type="text"
-                    placeholder="Nombre y apellido"
+                    placeholder="Usuario"
                     className="form-control"
                     onChange={(e) => setInput({
                       ...input,
@@ -36,9 +40,7 @@ function Register() {
                     })}
                   />
                 </div>
-
                 <div className="form-group mb-3">
-                  <p className="text-black">Escribe una contraseña única pero facíl de recordar</p>
                   <input
                     type="password"
                     placeholder="Contraseña"
@@ -49,14 +51,24 @@ function Register() {
                     })}
                   />
                 </div>
-
                 <input
                   className="btn btn-primary btn-login text-uppercase fw-bold"
                   type="submit"
-                  value="Registrarse"
+                  value="Iniciar sesión"
                 />
               </form>
             </div>
+            <h6 className="card-title text-black text-center mb-5 fw-bold fs-6">
+              ¿No tienes cuenta?
+              {' '}
+              <button
+                onClick={() => navigate('/register')}
+                type="button"
+                className="btn btn-link"
+              >
+                Regístrate
+              </button>
+            </h6>
           </div>
         </div>
       </div>
@@ -64,4 +76,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;

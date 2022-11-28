@@ -1,6 +1,7 @@
 import {
   NextFunction, Request, Response, Router,
 } from 'express';
+import generateToken from '../auth/generateToken';
 import registerController from '../controllers/registerController';
 import handleError from '../helpers/handleError';
 import { UserModel } from '../interfaces';
@@ -13,7 +14,8 @@ router.post('/', async (req: Request, res: Response, next: NextFunction): Promis
   try {
     if (user.name && user.password) {
       const userDB = await registerController(user);
-      return res.status(201).json(userDB);
+      const token = generateToken(userDB as UserModel);
+      return res.status(201).json({ token, userDB });
     }
     return res.status(206).json(handleError('No suminitró los datos requeridos'));
   } catch (error) {
