@@ -6,6 +6,8 @@ import { ChildrenProps, InitialState } from '../types';
 import { User, MsgError } from '../../../backend/src/types';
 
 function StoreProvider({ children }: ChildrenProps) {
+  const navigate = useNavigate();
+
   const initialState: InitialState = {
     userActive: {
       name: '',
@@ -19,10 +21,9 @@ function StoreProvider({ children }: ChildrenProps) {
   };
 
   const [state, setState] = useState(initialState);
-  const navigate = useNavigate();
 
-  async function register({ name, password }: User) {
-    const result = await axios.post('/register', { name, password });
+  async function getUser({ name, password }: User, route: string) {
+    const result = await axios.post(`/${route}`, { name, password });
     const user: User = result.data.userDB;
     const { token } = result.data;
     const error: MsgError = result.data.userDB;
@@ -42,24 +43,12 @@ function StoreProvider({ children }: ChildrenProps) {
     }
   }
 
-  async function login({ name, password }: User) {
-    const result = await axios.post('/login', { name, password });
-    const user: User = result.data.userDB;
-    const { token } = result.data;
-    const error: MsgError = result.data.userDB;
+  function register({ name, password }: User) {
+    getUser({ name, password }, 'register');
+  }
 
-    if (user.name) {
-      setState({
-        ...state,
-        userActive: user,
-        token,
-      });
-    } else {
-      setState({
-        ...state,
-        error,
-      });
-    }
+  function login({ name, password }: User) {
+    getUser({ name, password }, 'login');
   }
 
   return (

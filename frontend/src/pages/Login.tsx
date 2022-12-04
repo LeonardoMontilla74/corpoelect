@@ -1,19 +1,21 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, SyntheticEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { User } from '../../../backend/src/types';
 import UserContext from '../context/UserContext';
 
 function Login() {
   const navigate = useNavigate();
-  const { login } = useContext(UserContext);
+  const { login, state } = useContext(UserContext);
 
-  const [input, setInput] = useState({
+  const [input, setInput] = useState<User>({
     name: '',
     password: '',
   });
 
-  function loginUser() {
+  function loginUser(e: SyntheticEvent) {
+    e.preventDefault();
     login(input);
-    navigate('/home');
+    setInput({ name: '', password: '' });
   }
 
   return (
@@ -33,6 +35,7 @@ function Login() {
                     type="text"
                     placeholder="Usuario"
                     className="form-control"
+                    value={input.name}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput({
                       ...input,
                       name: e.target.value,
@@ -44,6 +47,7 @@ function Login() {
                     type="password"
                     placeholder="Contraseña"
                     className="form-control"
+                    value={input.password}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput({
                       ...input,
                       password: e.target.value,
@@ -56,6 +60,7 @@ function Login() {
                   value="Iniciar sesión"
                 />
               </form>
+              {state.error && <p className="text-danger">{state.error.msg}</p>}
             </div>
             <h6 className="card-title text-black text-center mb-5 fw-bold fs-6">
               ¿No tienes cuenta?
