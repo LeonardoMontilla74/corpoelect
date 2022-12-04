@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { Context } from '../interfaces/User.interface';
+import { Context } from '../types';
 
 const UserContext = createContext({} as Context);
 

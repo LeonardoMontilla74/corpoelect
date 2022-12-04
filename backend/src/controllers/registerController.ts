@@ -1,9 +1,9 @@
 import { hash } from 'bcrypt';
 import handleError from '../helpers/handleError';
-import { MsgError, UserModel } from '../interfaces';
+import { MsgError, User } from '../types';
 import Users from '../models/Users';
 
-async function registerController(user: UserModel): Promise<UserModel | MsgError> {
+async function registerController(user: User): Promise<User | MsgError> {
   const checkExist = await Users.findOne({ where: { name: user.name } });
   if (checkExist) return handleError('El usuario ya existe');
 
@@ -14,7 +14,7 @@ async function registerController(user: UserModel): Promise<UserModel | MsgError
       name: user.name,
       password: passEncrypt,
     });
-    return (userDB as UserModel);
+    return (userDB as User);
   } catch (error) {
     // eslint-disable-next-line no-console
     return handleError('Error al registrar el usuario', error);

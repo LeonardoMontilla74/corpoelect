@@ -1,19 +1,18 @@
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { User } from '../../../backend/src/types';
 import UserContext from '../context/UserContext';
 
 function Register() {
-  const navigate = useNavigate();
-  const { register } = useContext(UserContext);
+  const { register, state } = useContext(UserContext);
 
-  const [input, setInput] = useState({
+  const [input, setInput] = useState<User>({
     name: '',
     password: '',
   });
 
-  function registerUser() {
+  async function registerUser(e: React.SyntheticEvent) {
+    e.preventDefault();
     register(input);
-    navigate('/home');
   }
 
   return (
@@ -30,7 +29,7 @@ function Register() {
                     type="text"
                     placeholder="Nombre y apellido"
                     className="form-control"
-                    onChange={(e) => setInput({
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput({
                       ...input,
                       name: e.target.value,
                     })}
@@ -43,7 +42,7 @@ function Register() {
                     type="password"
                     placeholder="Contraseña"
                     className="form-control"
-                    onChange={(e) => setInput({
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput({
                       ...input,
                       password: e.target.value,
                     })}
@@ -56,6 +55,7 @@ function Register() {
                   value="Registrarse"
                 />
               </form>
+              {state.error && <p className="text-danger">{state.error.msg}</p>}
             </div>
           </div>
         </div>

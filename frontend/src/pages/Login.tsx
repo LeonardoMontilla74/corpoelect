@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 
@@ -24,9 +24,8 @@ function Login() {
             <div className="card-body p-4 p-sm-5">
               <h2 className="text-black">
                 Bienvenido a la app de
-                {' '}
-                <h1 className="text-black">Corpoelect</h1>
               </h2>
+              <h1 className="text-black">Corpoelect</h1>
               <hr />
               <form onSubmit={loginUser}>
                 <div className="form-group mb-3">
@@ -34,7 +33,7 @@ function Login() {
                     type="text"
                     placeholder="Usuario"
                     className="form-control"
-                    onChange={(e) => setInput({
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput({
                       ...input,
                       name: e.target.value,
                     })}
@@ -45,7 +44,7 @@ function Login() {
                     type="password"
                     placeholder="Contraseña"
                     className="form-control"
-                    onChange={(e) => setInput({
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput({
                       ...input,
                       password: e.target.value,
                     })}

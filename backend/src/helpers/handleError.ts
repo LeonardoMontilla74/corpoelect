@@ -1,4 +1,4 @@
-import { MsgError } from '../interfaces';
+import { MsgError } from '../types';
 
 function handleError(msgError?: string | null, error?: unknown) {
   // eslint-disable-next-line no-console

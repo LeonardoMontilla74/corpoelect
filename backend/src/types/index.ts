@@ -1,10 +1,10 @@
-export interface UserModel {
+export type User = {
   name: string
   password: string | number
   rol?: 'admin' | 'user'
   auth?: boolean
 }
 
-export interface MsgError {
+export type MsgError = {
   msg: string
 }

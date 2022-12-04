@@ -3,7 +3,6 @@ import UserContext from '../context/UserContext';
 
 function Home() {
   const { state } = useContext(UserContext);
-  console.log(state);
 
   return (
     <header>

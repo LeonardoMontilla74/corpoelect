@@ -1,10 +1,10 @@
 import 'dotenv/config';
 import { sign } from 'jsonwebtoken';
-import { UserModel } from '../interfaces';
+import { User } from '../types';
 
 const { ADMIN_TOKEN, USER_TOKEN } = process.env;
 
-export default async function generateToken(user: UserModel): Promise<string> {
+export default async function generateToken(user: User): Promise<string> {
   try {
     if (user.rol === 'admin') {
       const token = await sign(user, (ADMIN_TOKEN as string));
