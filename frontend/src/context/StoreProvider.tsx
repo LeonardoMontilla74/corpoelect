@@ -51,9 +51,23 @@ function StoreProvider({ children }: ChildrenProps) {
     getUser({ name, password }, 'login');
   }
 
+  async function getAllUsers(token: string) {
+    const allUsers = await axios.get(
+      '/admin/users',
+      { headers: { token } },
+    );
+    setState({
+      ...state,
+      allUsers: allUsers.data,
+    });
+  }
+
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <UserContext.Provider value={{ state, register, login }}>
+    <UserContext.Provider value={{
+      state, register, login, getAllUsers,
+    }}
+    >
       {children}
     </UserContext.Provider>
   );

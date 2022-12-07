@@ -15,4 +15,5 @@ export type Context = {
   state: InitialState
   register: any
   login: any
+  getAllUsers: any
 }

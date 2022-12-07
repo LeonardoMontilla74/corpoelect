@@ -1,16 +1,19 @@
 import { useContext } from 'react';
+import AdminDashboard from '../components/AdminDashboard';
+import UserDashboard from '../components/UserDashboard';
 import UserContext from '../context/UserContext';
 
 function Home() {
   const { state } = useContext(UserContext);
+  const { userActive } = state;
 
   return (
     <header>
-      <h3>{`Hola ${state.userActive?.name}`}</h3>
+      <h3>{`Hola ${userActive?.name}`}</h3>
       {
-        state.userActive?.auth === false
-          ? <p>Ahora ponte en contacto con el administrador del sitio</p>
-          : <p>Bienvenido</p>
+        userActive.rol === 'admin'
+          ? <AdminDashboard />
+          : <UserDashboard />
       }
     </header>
   );
