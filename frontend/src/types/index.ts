@@ -13,7 +13,7 @@ export type ChildrenProps = {
 
 export type Context = {
   state: InitialState
-  register: any
-  login: any
-  getAllUsers: any
+  register: ({ name, password }: User) => void
+  login: ({ name, password }: User) => void
+  getAllUsers: (token: string) => void
 }

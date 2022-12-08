@@ -1,5 +1,4 @@
 import { useContext, useEffect } from 'react';
-import { User } from '../../../backend/src/types';
 import UserContext from '../context/UserContext';
 
 function AdminDashboard() {
@@ -13,7 +12,7 @@ function AdminDashboard() {
   return (
     <div className="container">
       {
-        allUsers?.map((u: User) => (
+        allUsers?.map((u) => (
           <div
             className="container"
             key={u.id}
