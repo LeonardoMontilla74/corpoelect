@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 import App from './App';
-import StoreProvider from './context/StoreProvider';
+import StoreProvider from './context/Users/StoreProvider';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 axios.defaults.baseURL = 'http://localhost:4000';

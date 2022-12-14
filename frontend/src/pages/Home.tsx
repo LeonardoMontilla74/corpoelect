@@ -1,12 +1,12 @@
 import { useContext } from 'react';
-import AdminDashboard from '../components/AdminDashboard';
+import AdminDashboard from '../components/userComponents/AdminDashboard';
 import NavBar from '../components/NavBar';
-import UserDashboard from '../components/UserDashboard';
-import UserContext from '../context/UserContext';
+import UserDashboard from '../components/userComponents/UserDashboard';
+import UserContext from '../context/Users/UserContext';
 
 function Home() {
   const { state } = useContext(UserContext);
-  const { userActive } = state;
+  const { rol } = state.user;
 
   return (
     <>
@@ -16,7 +16,7 @@ function Home() {
 
       <main className="container mt-4">
         {
-          userActive.rol === 'admin'
+          rol === 'admin'
             ? <AdminDashboard />
             : <UserDashboard />
         }

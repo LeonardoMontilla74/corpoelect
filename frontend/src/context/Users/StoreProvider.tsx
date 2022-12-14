@@ -2,14 +2,14 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from './UserContext';
-import { ChildrenProps, InitialState } from '../types';
-import { User, MsgError } from '../../../backend/src/types';
+import { ChildrenProps, InitialState } from '../../types';
+import { User, MsgError } from '../../../../backend/src/types';
 
 function StoreProvider({ children }: ChildrenProps) {
   const navigate = useNavigate();
 
-  const initialState: InitialState = {
-    userActive: {
+  const INITIAL_STATE: InitialState = {
+    user: {
       name: '',
       password: '',
       rol: 'user',
@@ -20,19 +20,17 @@ function StoreProvider({ children }: ChildrenProps) {
     allUsers: [],
   };
 
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState(INITIAL_STATE);
 
-  async function getUser({ name, password }: User, route: string) {
-    const result = await axios.post(`/${route}`, { name, password });
+  async function register({ name, password }: User) {
+    const result = await axios.post('/register', { name, password });
     const user: User = result.data.userDB;
-    const { token } = result.data;
     const error: MsgError = result.data.userDB;
 
     if (user.name) {
       setState({
         ...state,
-        userActive: user,
-        token,
+        user,
       });
       navigate('/home');
     } else {
@@ -43,12 +41,25 @@ function StoreProvider({ children }: ChildrenProps) {
     }
   }
 
-  function register({ name, password }: User) {
-    getUser({ name, password }, 'register');
-  }
+  async function login({ name, password }: User) {
+    const result = await axios.post('login', { name, password });
+    const user: User = result.data.userDB;
+    const { token } = result.data;
+    const error: MsgError = result.data.userDB;
 
-  function login({ name, password }: User) {
-    getUser({ name, password }, 'login');
+    if (user.name) {
+      setState({
+        ...state,
+        user,
+        token,
+      });
+      navigate('/home');
+    } else {
+      setState({
+        ...state,
+        error,
+      });
+    }
   }
 
   async function getAllUsers(token: string) {

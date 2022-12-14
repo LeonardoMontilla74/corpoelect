@@ -1,13 +1,9 @@
-import { useContext, useEffect } from 'react';
-import UserContext from '../context/UserContext';
+import { useContext } from 'react';
+import UserContext from '../../context/Users/UserContext';
 
 function AdminDashboard() {
-  const { state, getAllUsers } = useContext(UserContext);
-  const { token, allUsers } = state;
-
-  useEffect(() => {
-    getAllUsers(token);
-  }, []);
+  const { state } = useContext(UserContext);
+  const { allUsers } = state;
 
   return (
     <div className="container">

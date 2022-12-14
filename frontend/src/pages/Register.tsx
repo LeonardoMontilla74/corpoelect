@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
-import { User } from '../../../backend/src/types';
-import UserContext from '../context/UserContext';
+import UserContext from '../context/Users/UserContext';
 
 function Register() {
   const { register, state } = useContext(UserContext);
+  const { error } = state;
 
-  const [input, setInput] = useState<User>({
+  const [input, setInput] = useState({
     name: '',
     password: '',
   });
@@ -55,7 +55,7 @@ function Register() {
                   value="Registrarse"
                 />
               </form>
-              {state.error && <p className="text-danger">{state.error.msg}</p>}
+              {error && <p className="text-danger">{error.msg}</p>}
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { User, MsgError } from '../../../backend/src/types';
 
 export type InitialState = {
-  userActive: User
+  user: User
   token: string
   error?: MsgError
   allUsers?: User[]

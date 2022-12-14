@@ -1,9 +1,14 @@
 import { useContext } from 'react';
-import UserContext from '../context/UserContext';
+import UserContext from '../context/Users/UserContext';
 
 function NavBar() {
-  const { state } = useContext(UserContext);
-  const { name, rol } = state.userActive;
+  const { state, getAllUsers } = useContext(UserContext);
+  const { name, rol } = state.user;
+  const { token } = state;
+
+  function getUsers() {
+    getAllUsers(token);
+  }
 
   return (
     <nav className="navbar m-2 p-2">
@@ -11,6 +16,7 @@ function NavBar() {
       {rol === 'admin' && (
         <button
           type="button"
+          onClick={getUsers}
           className="btn btn-primary"
         >
           Administrar usuarios

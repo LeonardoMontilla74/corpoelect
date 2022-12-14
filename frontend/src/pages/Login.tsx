@@ -1,13 +1,13 @@
 import React, { useState, useContext, SyntheticEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User } from '../../../backend/src/types';
-import UserContext from '../context/UserContext';
+import UserContext from '../context/Users/UserContext';
 
 function Login() {
   const navigate = useNavigate();
   const { login, state } = useContext(UserContext);
+  const { error } = state;
 
-  const [input, setInput] = useState<User>({
+  const [input, setInput] = useState({
     name: '',
     password: '',
   });
@@ -60,7 +60,7 @@ function Login() {
                   value="Iniciar sesión"
                 />
               </form>
-              {state.error && <p className="text-danger">{state.error.msg}</p>}
+              {error && <p className="text-danger">{error.msg}</p>}
             </div>
             <h6 className="card-title text-black text-center mb-5 fw-bold fs-6">
               ¿No tienes cuenta?
