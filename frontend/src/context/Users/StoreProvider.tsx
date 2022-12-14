@@ -1,24 +1,12 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UserContext from './UserContext';
-import { ChildrenProps, InitialState } from '../../types';
+import UserContext, { INITIAL_STATE } from './UserContext';
+import { ChildrenProps } from '../../types';
 import { User, MsgError } from '../../../../backend/src/types';
 
 function StoreProvider({ children }: ChildrenProps) {
   const navigate = useNavigate();
-
-  const INITIAL_STATE: InitialState = {
-    user: {
-      name: '',
-      password: '',
-      rol: 'user',
-      auth: false,
-    },
-    token: '',
-    error: { msg: '' },
-    allUsers: [],
-  };
 
   const [state, setState] = useState(INITIAL_STATE);
 
