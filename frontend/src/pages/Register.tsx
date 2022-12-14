@@ -29,6 +29,7 @@ function Register() {
                     type="text"
                     placeholder="Nombre y apellido"
                     className="form-control"
+                    autoFocus
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput({
                       ...input,
                       name: e.target.value,

@@ -33,6 +33,7 @@ function Login() {
                 <div className="form-group mb-3">
                   <input
                     type="text"
+                    autoFocus
                     placeholder="Usuario"
                     className="form-control"
                     value={input.name}

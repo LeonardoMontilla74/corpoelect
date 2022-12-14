@@ -26,7 +26,7 @@ router.put('/users/update', async (req: Request, res: Response) => {
 });
 
 router.delete('/users/delete', async (req: Request, res: Response) => {
-  const { id } = req.body;
+  const { id } = req.headers;
   const userDelete = await Users.destroy({ where: { id } });
 
   if (userDelete === 1) return res.status(200).json({ msg: 'Usuario borrado correctamente' });

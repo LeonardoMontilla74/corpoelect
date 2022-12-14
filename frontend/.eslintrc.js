@@ -25,5 +25,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
+    'jsx-a11y/no-autofocus': 'off',
   },
 };
