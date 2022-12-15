@@ -25,6 +25,12 @@ function StoreProvider({ children }: ChildrenProps) {
         ...state,
         error,
       });
+      setInterval(() => {
+        setState({
+          ...state,
+          error: { msg: '' },
+        });
+      }, 8000);
     }
   }
 
@@ -45,6 +51,12 @@ function StoreProvider({ children }: ChildrenProps) {
         ...state,
         error,
       });
+      setInterval(() => {
+        setState({
+          ...state,
+          error: { msg: '' },
+        });
+      }, 8000);
     }
   }
 

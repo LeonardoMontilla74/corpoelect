@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { User } from '../../../../backend/src/types';
 import UserContext from '../../context/Users/UserContext';
 
@@ -7,23 +7,36 @@ function UserList({
 }: User) {
   const { state, updateUser, deleteUser } = useContext(UserContext);
   const { token } = state;
+  const [alert, setAlert] = useState(false);
 
   function handleRol(e: React.ChangeEvent<HTMLSelectElement>) {
     const rolChange = e.target.value;
     updateUser(token, id as number, rolChange as 'admin' | 'user', true);
+    setAlert(true);
+    setInterval(() => {
+      setAlert(false);
+    }, 3000);
   }
 
   function handleAuth() {
     updateUser(token, id as number, undefined, !auth);
+    setAlert(true);
+    setInterval(() => {
+      setAlert(false);
+    }, 3000);
   }
 
   function handleDelete() {
     deleteUser(token, id as number);
+    setAlert(true);
+    setInterval(() => {
+      setAlert(false);
+    }, 3000);
   }
 
   return (
     <div
-      className="container border m-1 column"
+      className="col border rounded-2 m-1 p-3 text-center"
       key={id}
     >
       <h4>
@@ -34,8 +47,12 @@ function UserList({
         <p>
           {`Rol: ${rol}`}
         </p>
-        <select name="rol" onChange={(e) => handleRol(e)}>
-          <option value="">Cambiar rol</option>
+        <select
+          onChange={(e) => handleRol(e)}
+          className="form-select form-select-sm"
+          aria-label="Cambiar rol de usuario"
+        >
+          <option selected>Elegir rol:</option>
           <option value="admin">Admin</option>
           <option value="user">User</option>
         </select>
@@ -65,6 +82,15 @@ function UserList({
       >
         Borrar Usuario
       </button>
+
+      {
+        alert && (
+          <div className="alert alert-success" role="alert">
+            Actualizado correctamente
+          </div>
+        )
+      }
+
     </div>
   );
 }

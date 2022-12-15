@@ -61,7 +61,14 @@ function Login() {
                   value="Iniciar sesión"
                 />
               </form>
-              {error && <p className="text-danger">{error.msg}</p>}
+              {error?.msg && (
+                <div
+                  className="alert alert-danger mt-2"
+                  role="alert"
+                >
+                  {error.msg}
+                </div>
+              )}
             </div>
             <h6 className="card-title text-black text-center mb-5 fw-bold fs-6">
               ¿No tienes cuenta?

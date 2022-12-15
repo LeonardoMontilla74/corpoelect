@@ -14,18 +14,20 @@ function AdminDashboard() {
 
   return (
     <div className="container">
-      {
-        userFilter?.map((u) => (
-          <UserList
-            key={u.id}
-            id={u.id}
-            name={u.name}
-            password={u.name}
-            rol={u.rol}
-            auth={u.auth}
-          />
-        ))
-      }
+      <div className="row">
+        {
+          userFilter?.map((u) => (
+            <UserList
+              key={u.id}
+              id={u.id}
+              name={u.name}
+              password={u.name}
+              rol={u.rol}
+              auth={u.auth}
+            />
+          ))
+        }
+      </div>
     </div>
   );
 }

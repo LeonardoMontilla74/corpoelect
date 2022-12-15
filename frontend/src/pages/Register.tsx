@@ -56,7 +56,14 @@ function Register() {
                   value="Registrarse"
                 />
               </form>
-              {error && <p className="text-danger">{error.msg}</p>}
+              {error?.msg && (
+                <div
+                  className="alert alert-danger mt-2"
+                  role="alert"
+                >
+                  {error.msg}
+                </div>
+              )}
             </div>
           </div>
         </div>
