@@ -18,4 +18,5 @@ export type Context = {
   getAllUsers: (token: string) => void
   updateUser: (token: string, id: number, rol?: 'admin' | 'user', auth?: boolean) => void
   deleteUser: (token: string, id: number) => void
+  cleanUsers: () => void
 }

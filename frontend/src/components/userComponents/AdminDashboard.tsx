@@ -1,56 +1,29 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import UserContext from '../../context/Users/UserContext';
+import UserList from './UserList';
 
 function AdminDashboard() {
-  const { state, updateUser, deleteUser } = useContext(UserContext);
-  const { token } = state;
+  const { state, cleanUsers } = useContext(UserContext);
   const { allUsers } = state;
 
-  async function handleUpdate(id: number, auth: boolean) {
-    await updateUser(token, id, 'user', auth);
-    alert('Usuario actulizado');
-  }
+  useEffect(() => () => {
+    cleanUsers();
+  }, []);
 
-  async function handleDelete(id: number) {
-    await deleteUser(token, id);
-    alert('Usuario borrado');
-  }
+  const userFilter = allUsers?.filter((u) => u.id !== state.user.id);
 
   return (
     <div className="container">
       {
-        allUsers?.map((u) => (
-          <div
-            className="container border m-1 column"
+        userFilter?.map((u) => (
+          <UserList
             key={u.id}
-          >
-            <p>
-              {`Id: ${u.id}`}
-            </p>
-            <p>
-              {`Nombre: ${u.name}`}
-            </p>
-            <p>
-              {`Rol: ${u.rol}`}
-            </p>
-            <p>
-              {`Autenticado: ${u.auth}`}
-            </p>
-            <button
-              type="button"
-              onClick={() => handleUpdate(u.id as number, true)}
-              className="btn btn-outline-primary"
-            >
-              Actualizar
-            </button>
-            <button
-              type="button"
-              onClick={() => handleDelete(u.id as number)}
-              className="btn btn-outline-danger m-2"
-            >
-              Borrar
-            </button>
-          </div>
+            id={u.id}
+            name={u.name}
+            password={u.name}
+            rol={u.rol}
+            auth={u.auth}
+          />
         ))
       }
     </div>

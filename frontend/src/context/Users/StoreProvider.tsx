@@ -78,10 +78,12 @@ function StoreProvider({ children }: ChildrenProps) {
     getAllUsers(token);
   }
 
+  function cleanUsers() { setState({ ...state, allUsers: [] }); }
+
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <UserContext.Provider value={{
-      state, register, login, getAllUsers, updateUser, deleteUser,
+      state, register, login, getAllUsers, updateUser, deleteUser, cleanUsers,
     }}
     >
       {children}
