@@ -52,7 +52,7 @@ function UserList({
           className="form-select form-select-sm"
           aria-label="Cambiar rol de usuario"
         >
-          <option selected>Elegir rol:</option>
+          <option selected defaultValue="Admin">Elegir rol:</option>
           <option value="admin">Admin</option>
           <option value="user">User</option>
         </select>
@@ -61,9 +61,8 @@ function UserList({
       <hr />
 
       <div>
-        <p>
-          {`Autenticado: ${auth}`}
-        </p>
+        Autenticado:
+        <h5 className={auth ? 'text-success' : 'text-danger'}>{`${auth}`}</h5>
         <button
           type="button"
           onClick={handleAuth}

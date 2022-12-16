@@ -1,9 +1,13 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import UserContext from '../context/Users/UserContext';
 
 function Register() {
-  const { register, state } = useContext(UserContext);
+  const { register, cleanUsers, state } = useContext(UserContext);
   const { error } = state;
+
+  useEffect(() => {
+    cleanUsers();
+  }, []);
 
   const [input, setInput] = useState({
     name: '',

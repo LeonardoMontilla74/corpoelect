@@ -1,11 +1,17 @@
-import React, { useState, useContext, SyntheticEvent } from 'react';
+import React, {
+  useState, useContext, SyntheticEvent, useEffect,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/Users/UserContext';
 
 function Login() {
   const navigate = useNavigate();
-  const { login, state } = useContext(UserContext);
+  const { state, login, cleanUsers } = useContext(UserContext);
   const { error } = state;
+
+  useEffect(() => {
+    cleanUsers();
+  }, []);
 
   const [input, setInput] = useState({
     name: '',

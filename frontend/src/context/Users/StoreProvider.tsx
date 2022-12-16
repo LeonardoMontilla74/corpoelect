@@ -25,12 +25,6 @@ function StoreProvider({ children }: ChildrenProps) {
         ...state,
         error,
       });
-      setInterval(() => {
-        setState({
-          ...state,
-          error: { msg: '' },
-        });
-      }, 8000);
     }
   }
 
@@ -51,12 +45,6 @@ function StoreProvider({ children }: ChildrenProps) {
         ...state,
         error,
       });
-      setInterval(() => {
-        setState({
-          ...state,
-          error: { msg: '' },
-        });
-      }, 8000);
     }
   }
 
@@ -90,7 +78,7 @@ function StoreProvider({ children }: ChildrenProps) {
     getAllUsers(token);
   }
 
-  function cleanUsers() { setState({ ...state, allUsers: [] }); }
+  function cleanUsers() { setState({ ...state, allUsers: [], error: { msg: '' } }); }
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
