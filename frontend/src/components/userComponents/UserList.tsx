@@ -8,6 +8,8 @@ function UserList({
   const { state, updateUser, deleteUser } = useContext(UserContext);
   const { token } = state;
   const [alert, setAlert] = useState(false);
+  const isActive = auth ? 'Activo' : 'Inactivo';
+  const cargo = rol === 'admin' ? 'Adminitrador' : 'Usuario';
 
   function handleRol(e: React.ChangeEvent<HTMLSelectElement>) {
     const rolChange = e.target.value;
@@ -45,24 +47,24 @@ function UserList({
 
       <div>
         <p>
-          {`Rol: ${rol}`}
+          {`Cargo: ${cargo}`}
         </p>
         <select
           onChange={(e) => handleRol(e)}
           className="form-select form-select-sm"
           aria-label="Cambiar rol de usuario"
         >
-          <option selected defaultValue="Admin">Elegir rol:</option>
-          <option value="admin">Admin</option>
-          <option value="user">User</option>
+          <option defaultValue="user">Elegir rol:</option>
+          <option value="admin">Administrador</option>
+          <option value="user">Usuario</option>
         </select>
       </div>
 
       <hr />
 
       <div>
-        Autenticado:
-        <h5 className={auth ? 'text-success' : 'text-danger'}>{`${auth}`}</h5>
+        Estado:
+        <h5 className={auth ? 'text-success' : 'text-danger'}>{`${isActive}`}</h5>
         <button
           type="button"
           onClick={handleAuth}

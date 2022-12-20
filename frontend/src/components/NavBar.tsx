@@ -1,13 +1,15 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/Users/UserContext';
 
 function NavBar() {
-  const { state, getAllUsers } = useContext(UserContext);
+  const { state, cleanUsers } = useContext(UserContext);
   const { name, rol } = state.user;
-  const { token } = state;
+  const navigate = useNavigate();
 
-  function getUsers() {
-    getAllUsers(token);
+  function closeSesion() {
+    cleanUsers();
+    navigate('/');
   }
 
   return (
@@ -16,12 +18,20 @@ function NavBar() {
       {rol === 'admin' && (
         <button
           type="button"
-          onClick={getUsers}
+          onClick={() => navigate('/admin/users')}
           className="btn btn-primary"
         >
           Administrar usuarios
         </button>
       )}
+      <button
+        type="button"
+        onClick={closeSesion}
+        className="btn btn-danger"
+      >
+        Cerrar sesión
+
+      </button>
     </nav>
   );
 }

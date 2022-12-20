@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import UserContext from '../../context/Users/UserContext';
 
-function UserDashboard() {
+function PanelClient() {
   const { state } = useContext(UserContext);
   const { auth } = state.user;
 
@@ -9,11 +9,11 @@ function UserDashboard() {
     <div>
       {
         auth
-          ? <p>El usuario está autenticado</p>
-          : <p>Ahora ponte en contacto con el administrador del sitio</p>
+          ? <div>Este es el panel de consultas</div>
+          : <p>Ahora ponte en contacto con el Administrador del sitio</p>
       }
     </div>
   );
 }
 
-export default UserDashboard;
+export default PanelClient;

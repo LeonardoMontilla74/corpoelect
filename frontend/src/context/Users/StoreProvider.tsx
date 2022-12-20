@@ -78,7 +78,7 @@ function StoreProvider({ children }: ChildrenProps) {
     getAllUsers(token);
   }
 
-  function cleanUsers() { setState({ ...state, allUsers: [], error: { msg: '' } }); }
+  function cleanUsers() { setState(INITIAL_STATE); }
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
