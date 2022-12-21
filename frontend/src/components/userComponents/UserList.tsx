@@ -9,7 +9,7 @@ function UserList({
   const { token } = state;
   const [alert, setAlert] = useState(false);
   const isActive = auth ? 'Activo' : 'Inactivo';
-  const cargo = rol === 'admin' ? 'Adminitrador' : 'Usuario';
+  const cargo = rol === 'admin' ? 'Administrador' : 'Usuario';
 
   function handleRol(e: React.ChangeEvent<HTMLSelectElement>) {
     const rolChange = e.target.value;
@@ -38,7 +38,7 @@ function UserList({
 
   return (
     <div
-      className="col border rounded-2 m-1 p-3 text-center"
+      className="col-sm-12 col-md-4 col-lg-3 border rounded-2 m-3 p-3 text-center"
       key={id}
     >
       <h4>

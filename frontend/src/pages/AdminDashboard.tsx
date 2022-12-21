@@ -15,19 +15,21 @@ function AdminDashboard() {
   const userFilter = allUsers?.filter((u) => u.id !== state.user.id);
 
   return (
-    <div className="container m-4">
+    <section className="container-fluid">
       <div className="row">
         {
-          userFilter?.map((u) => (
-            <UserList
-              key={u.id}
-              id={u.id}
-              name={u.name}
-              password={u.name}
-              rol={u.rol}
-              auth={u.auth}
-            />
-          ))
+          userFilter?.length
+            ? userFilter?.map((u) => (
+              <UserList
+                key={u.id}
+                id={u.id}
+                name={u.name}
+                password={u.name}
+                rol={u.rol}
+                auth={u.auth}
+              />
+            ))
+            : <h3 className="m-10">Cargando lista de usuarios...</h3>
         }
       </div>
       <button
@@ -37,7 +39,7 @@ function AdminDashboard() {
       >
         Regresar
       </button>
-    </div>
+    </section>
   );
 }
 

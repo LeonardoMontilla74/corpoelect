@@ -6,13 +6,13 @@ function PanelClient() {
   const { auth } = state.user;
 
   return (
-    <div>
+    <main className="container">
       {
         auth
           ? <div>Este es el panel de consultas</div>
           : <p>Ahora ponte en contacto con el Administrador del sitio</p>
       }
-    </div>
+    </main>
   );
 }
 

@@ -13,7 +13,7 @@ function NavBar() {
   }
 
   return (
-    <nav className="navbar m-2 p-2">
+    <nav className="navbar bg-light text-black rounded-2 m-2 p-2">
       <h3>{`Hola ${name}`}</h3>
       {rol === 'admin' && (
         <button
