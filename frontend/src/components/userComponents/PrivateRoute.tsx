@@ -4,12 +4,13 @@ import AdminDashboard from '../../pages/AdminDashboard';
 import PageNotFound from '../../pages/PageNotFound';
 
 function PrivateRoute() {
-  const { state } = useContext(UserContext);
+  const { userState } = useContext(UserContext);
+  const { rol } = userState.user;
 
   return (
     <main>
       {
-        state.user.rol === 'admin'
+        rol === 'admin'
           ? <AdminDashboard />
           : <PageNotFound />
       }

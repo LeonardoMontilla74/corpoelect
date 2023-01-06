@@ -2,8 +2,8 @@ import { useState, useContext, useEffect } from 'react';
 import UserContext from '../context/Users/UserContext';
 
 function Register() {
-  const { register, cleanUsers, state } = useContext(UserContext);
-  const { error } = state;
+  const { register, cleanUsers, userState } = useContext(UserContext);
+  const { error } = userState;
 
   useEffect(() => {
     cleanUsers();

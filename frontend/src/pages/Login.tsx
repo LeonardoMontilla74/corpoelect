@@ -6,8 +6,8 @@ import UserContext from '../context/Users/UserContext';
 
 function Login() {
   const navigate = useNavigate();
-  const { state, login, cleanUsers } = useContext(UserContext);
-  const { error } = state;
+  const { userState, login, cleanUsers } = useContext(UserContext);
+  const { error } = userState;
 
   useEffect(() => {
     cleanUsers();

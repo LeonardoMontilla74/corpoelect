@@ -4,15 +4,16 @@ import UserContext from '../context/Users/UserContext';
 import UserList from '../components/userComponents/UserList';
 
 function AdminDashboard() {
-  const { state, getAllUsers } = useContext(UserContext);
-  const { user, allUsers, token } = state;
+  const { userState, getAllUsers } = useContext(UserContext);
+  const { rol, id } = userState.user;
+  const { allUsers, token } = userState;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user.rol === 'admin' && allUsers?.length === 0) getAllUsers(token);
+    if (rol === 'admin' && allUsers?.length === 0) getAllUsers(token);
   }, [allUsers]);
 
-  const userFilter = allUsers?.filter((u) => u.id !== state.user.id);
+  const userFilter = allUsers?.filter((u) => u.id !== id);
 
   return (
     <section className="container-fluid">

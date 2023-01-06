@@ -8,23 +8,18 @@ import { User, MsgError } from '../../../../backend/src/types';
 function StoreProvider({ children }: ChildrenProps) {
   const navigate = useNavigate();
 
-  const [state, setState] = useState(INITIAL_STATE);
+  const [userState, setUserState] = useState(INITIAL_STATE);
 
   async function register({ name, password }: User) {
     const result = await axios.post('/register', { name, password });
     const user: User = result.data.userDB;
     const error: MsgError = result.data.userDB;
+
     if (user.name) {
-      setState({
-        ...state,
-        user,
-      });
+      setUserState({ ...userState, user });
       navigate('/home');
     } else {
-      setState({
-        ...state,
-        error,
-      });
+      setUserState({ ...userState, error });
     }
   }
 
@@ -33,18 +28,12 @@ function StoreProvider({ children }: ChildrenProps) {
     const user: User = result.data.userDB;
     const { token } = result.data;
     const error: MsgError = result.data.userDB;
+
     if (user.name) {
-      setState({
-        ...state,
-        user,
-        token,
-      });
+      setUserState({ ...userState, user, token });
       navigate('/home');
     } else {
-      setState({
-        ...state,
-        error,
-      });
+      setUserState({ ...userState, error });
     }
   }
 
@@ -53,10 +42,8 @@ function StoreProvider({ children }: ChildrenProps) {
       '/admin/users',
       { headers: { token } },
     );
-    setState({
-      ...state,
-      allUsers: allUsers.data,
-    });
+
+    setUserState({ ...userState, allUsers: allUsers.data });
   }
 
   async function updateUser(token: string, id: number, rol?: 'admin' | 'user', auth?: boolean) {
@@ -71,19 +58,17 @@ function StoreProvider({ children }: ChildrenProps) {
   async function deleteUser(token: string, id: number) {
     axios.delete(
       'admin/users/delete',
-      {
-        headers: { token, id },
-      },
+      { headers: { token, id } },
     );
     getAllUsers(token);
   }
 
-  function cleanUsers() { setState(INITIAL_STATE); }
+  function cleanUsers() { setUserState(INITIAL_STATE); }
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <UserContext.Provider value={{
-      state, register, login, getAllUsers, updateUser, deleteUser, cleanUsers,
+      userState, register, login, getAllUsers, updateUser, deleteUser, cleanUsers,
     }}
     >
       {children}

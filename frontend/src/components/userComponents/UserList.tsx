@@ -5,8 +5,8 @@ import UserContext from '../../context/Users/UserContext';
 function UserList({
   id, name, rol, auth,
 }: User) {
-  const { state, updateUser, deleteUser } = useContext(UserContext);
-  const { token } = state;
+  const { userState, updateUser, deleteUser } = useContext(UserContext);
+  const { token } = userState;
   const [alert, setAlert] = useState(false);
   const isActive = auth ? 'Activo' : 'Inactivo';
   const cargo = rol === 'admin' ? 'Administrador' : 'Usuario';

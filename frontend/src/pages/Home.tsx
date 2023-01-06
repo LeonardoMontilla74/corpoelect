@@ -1,11 +1,12 @@
 import { useContext } from 'react';
 import NavBar from '../components/NavBar';
-import PanelClient from '../components/Client/PanelClient';
 import UserContext from '../context/Users/UserContext';
 import PageNotFound from './PageNotFound';
+import CheckPermision from '../components/Client/CheckPermision';
 
 function Home() {
-  const { state } = useContext(UserContext);
+  const { userState } = useContext(UserContext);
+  const { user } = userState;
   return (
     <>
       <header>
@@ -14,8 +15,8 @@ function Home() {
 
       <main className="container-fluid">
         {
-          state.user
-            ? <PanelClient />
+          user
+            ? <CheckPermision />
             : <PageNotFound />
         }
 

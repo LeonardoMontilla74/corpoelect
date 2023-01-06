@@ -1,19 +1,20 @@
 import { useContext } from 'react';
 import UserContext from '../../context/Users/UserContext';
+import ClientDashboard from './ClientDashboard';
 
-function PanelClient() {
-  const { state } = useContext(UserContext);
-  const { auth } = state.user;
+function CheckPermision() {
+  const { userState } = useContext(UserContext);
+  const { auth } = userState.user;
 
   return (
     <main className="container">
       {
         auth
-          ? <div>Este es el panel de consultas</div>
+          ? <ClientDashboard />
           : <p>Ahora ponte en contacto con el Administrador del sitio</p>
       }
     </main>
   );
 }
 
-export default PanelClient;
+export default CheckPermision;
