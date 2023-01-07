@@ -16,7 +16,12 @@ function ClientsStoreProvider({ children }: ChildrenProps) {
 
   async function createNotification(notification: NotificationModel) {
     const result = await axios.post('clients/notifications/create', notification);
-    return result.data;
+    return result.data.msg;
+  }
+
+  async function getAllNotifications(token: string) {
+    const result = await axios.get('/clients/notifications', { headers: { token } });
+    setClientState({ ...clientState, notifications: result.data });
   }
 
   function cleanClients() {
@@ -26,7 +31,7 @@ function ClientsStoreProvider({ children }: ChildrenProps) {
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <ClientsContext.Provider value={{
-      clientState, getClient, cleanClients, createNotification,
+      clientState, getClient, cleanClients, createNotification, getAllNotifications,
     }}
     >
       {children}

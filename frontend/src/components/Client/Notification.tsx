@@ -1,21 +1,20 @@
 import {
   ChangeEvent, SyntheticEvent, useContext, useState,
 } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ClientsContext from '../../context/Clients/ClientsContext';
 import UserContext from '../../context/Users/UserContext';
 
 function Notification() {
   const { idClient } = useParams();
+  const navigate = useNavigate();
+
   const { userState } = useContext(UserContext);
-  const { createNotification } = useContext(ClientsContext);
   const { user } = userState;
 
-  const [inputs, setInputs] = useState({
-    type: '',
-    desc: '',
-  });
+  const { createNotification } = useContext(ClientsContext);
 
+  const [inputs, setInputs] = useState({ type: '', desc: '' });
   const [msg, setMsg] = useState('');
 
   function handleType(e: ChangeEvent<HTMLSelectElement>) {
@@ -26,7 +25,7 @@ function Notification() {
     setInputs({ ...inputs, desc: e.target.value });
   }
 
-  async function submitReclam(e: SyntheticEvent) {
+  async function submitNotification(e: SyntheticEvent) {
     e.preventDefault();
     const notification = {
       idNotification: 0,
@@ -37,15 +36,16 @@ function Notification() {
       statusNotification: 'Pendiente por revisión',
     };
     const result = await createNotification(notification);
-    console.log(result);
-    setMsg('Yes');
+    setMsg(result);
     setInputs({ type: '', desc: '' });
+    navigate('/home');
   }
   return (
     <div className="container-fluid">
+      <h4>{msg}</h4>
       <div className="row">
         <div className="col-sm-7 col-md-5 col-lg-4 mx-auto">
-          <form className=" form-group" onSubmit={submitReclam}>
+          <form className=" form-group" onSubmit={submitNotification}>
             <select
               className="form-select m-2"
               aria-label="Cambiar rol de usuario"
@@ -63,7 +63,7 @@ function Notification() {
               name="description"
               placeholder="Escriba todos los datos necesarios..."
               cols={40}
-              rows={10}
+              rows={5}
               value={inputs.desc}
               onChange={handleDesc}
             />
@@ -75,7 +75,6 @@ function Notification() {
           </form>
         </div>
       </div>
-      <p>{msg}</p>
     </div>
   );
 }

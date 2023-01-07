@@ -30,7 +30,11 @@ function AdminDashboard() {
                 auth={u.auth}
               />
             ))
-            : <h3 className="m-10">Cargando lista de usuarios...</h3>
+            : (
+              <div className="m-4 spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            )
         }
       </div>
       <button
