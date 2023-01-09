@@ -62,7 +62,7 @@ function Notification() {
               className="form-textarea m-1 rounded"
               name="description"
               placeholder="Escriba todos los datos necesarios..."
-              cols={40}
+              cols={55}
               rows={5}
               value={inputs.desc}
               onChange={handleDesc}
@@ -71,6 +71,7 @@ function Notification() {
               type="submit"
               value="Enviar"
               className="btn btn-success"
+              disabled={!inputs.type && !inputs.desc}
             />
           </form>
         </div>

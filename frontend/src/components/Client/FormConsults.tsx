@@ -58,7 +58,7 @@ function FormConsults() {
                 className="btn btn-info btn-login text-uppercase fw-bold m-3 form-control"
                 type="submit"
                 value="Consultar"
-                disabled={!!input.value}
+                disabled={!input.param}
               />
             </form>
           </div>
