@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../databases';
 
 const Users = sequelize.define('Users', {
-  id: {
+  idUser: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,

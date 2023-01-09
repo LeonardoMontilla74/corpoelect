@@ -14,6 +14,7 @@ function Login() {
   }, []);
 
   const [input, setInput] = useState({
+    idUser: 0,
     name: '',
     password: '',
   });
@@ -21,7 +22,7 @@ function Login() {
   function loginUser(e: SyntheticEvent) {
     e.preventDefault();
     login(input);
-    setInput({ name: '', password: '' });
+    setInput({ ...input, name: '', password: '' });
   }
 
   return (

@@ -3,7 +3,7 @@ import { User } from '../../../../backend/src/types';
 import UserContext from '../../context/Users/UserContext';
 
 function UserList({
-  id, name, rol, auth,
+  idUser, name, rol, auth,
 }: User) {
   const { userState, updateUser, deleteUser } = useContext(UserContext);
   const { token } = userState;
@@ -13,7 +13,7 @@ function UserList({
 
   function handleRol(e: React.ChangeEvent<HTMLSelectElement>) {
     const rolChange = e.target.value;
-    updateUser(token, id as number, rolChange as 'admin' | 'user', true);
+    updateUser(token, idUser, rolChange as 'admin' | 'user', true);
     setAlert(true);
     setInterval(() => {
       setAlert(false);
@@ -21,7 +21,7 @@ function UserList({
   }
 
   function handleAuth() {
-    updateUser(token, id as number, undefined, !auth);
+    updateUser(token, idUser, undefined, !auth);
     setAlert(true);
     setInterval(() => {
       setAlert(false);
@@ -29,7 +29,7 @@ function UserList({
   }
 
   function handleDelete() {
-    deleteUser(token, id as number);
+    deleteUser(token, idUser);
     setAlert(true);
     setInterval(() => {
       setAlert(false);
@@ -39,7 +39,7 @@ function UserList({
   return (
     <div
       className="col-sm-12 col-md-4 col-lg-3 border rounded-2 m-3 p-3 text-center"
-      key={id}
+      key={idUser}
     >
       <h4>
         {`Nombre: ${name}`}

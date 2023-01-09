@@ -23,6 +23,7 @@ export type Context = {
 
 // _____________ Clients ________________
 export type Client = {
+  idClient: number
   AMP_PRI: string
   AMP_SEC: string
   ANLAGE: string
@@ -62,7 +63,6 @@ export type Client = {
   VOL_PRI: string
   VOL_SEC: string
   VSTELLE: string
-  id: number
 }
 export type ClientsState = {
   client?: Client[]

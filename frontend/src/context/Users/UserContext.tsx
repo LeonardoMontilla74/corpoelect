@@ -3,6 +3,7 @@ import { InitialState, Context } from '../../types';
 
 export const INITIAL_STATE: InitialState = {
   user: {
+    idUser: 0,
     name: '',
     password: '',
     rol: 'user',

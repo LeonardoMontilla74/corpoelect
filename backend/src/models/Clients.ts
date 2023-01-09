@@ -2,6 +2,11 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../databases';
 
 const Clients = sequelize.define('Clients', {
+  idClient: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
   RUTA: {
     type: DataTypes.STRING,
     allowNull: true,

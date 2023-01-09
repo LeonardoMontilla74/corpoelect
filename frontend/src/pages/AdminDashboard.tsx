@@ -5,7 +5,7 @@ import UserList from '../components/userComponents/UserList';
 
 function AdminDashboard() {
   const { userState, getAllUsers } = useContext(UserContext);
-  const { rol, id } = userState.user;
+  const { rol, idUser } = userState.user;
   const { allUsers, token } = userState;
   const navigate = useNavigate();
 
@@ -13,7 +13,7 @@ function AdminDashboard() {
     if (rol === 'admin' && allUsers?.length === 0) getAllUsers(token);
   }, [allUsers]);
 
-  const userFilter = allUsers?.filter((u) => u.id !== id);
+  const userFilter = allUsers?.filter((u) => u.idUser !== idUser);
 
   return (
     <section className="container-fluid">
@@ -22,8 +22,8 @@ function AdminDashboard() {
           userFilter?.length
             ? userFilter?.map((u) => (
               <UserList
-                key={u.id}
-                id={u.id}
+                key={u.idUser}
+                idUser={u.idUser}
                 name={u.name}
                 password={u.name}
                 rol={u.rol}

@@ -46,10 +46,10 @@ function StoreProvider({ children }: ChildrenProps) {
     setUserState({ ...userState, allUsers: allUsers.data });
   }
 
-  async function updateUser(token: string, id: number, rol?: 'admin' | 'user', auth?: boolean) {
+  async function updateUser(token: string, idUser: number, rol?: 'admin' | 'user', auth?: boolean) {
     await axios.put(
       'admin/users/update',
-      { id, rol, auth },
+      { idUser, rol, auth },
       { headers: { token } },
     );
     getAllUsers(token);

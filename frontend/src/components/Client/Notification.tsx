@@ -30,7 +30,7 @@ function Notification() {
     const notification = {
       idNotification: 0,
       idClient: Number(idClient),
-      idUser: Number(user.id),
+      idUser: user.idUser,
       type: inputs.type,
       desc: inputs.desc,
       statusNotification: 'Pendiente por revisión',

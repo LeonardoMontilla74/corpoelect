@@ -10,6 +10,7 @@ function Register() {
   }, []);
 
   const [input, setInput] = useState({
+    idUser: 0,
     name: '',
     password: '',
   });
@@ -17,6 +18,7 @@ function Register() {
   async function registerUser(e: React.SyntheticEvent) {
     e.preventDefault();
     register(input);
+    setInput({ ...input, name: '', password: '' });
   }
 
   return (

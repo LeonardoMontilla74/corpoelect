@@ -7,7 +7,7 @@ function ClientDetails() {
   const { idClient } = useParams();
   const navigate = useNavigate();
   const { clientState } = useContext(ClientsContext);
-  const c = clientState.client?.find((client) => client.id === Number(idClient));
+  const c = clientState.client?.find((client) => client.idClient === Number(idClient));
 
   const [showNotification, setShowNotification] = useState(false);
 
