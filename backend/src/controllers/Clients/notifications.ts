@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import authorizateRoute from '../../auth/authorizateRoute';
 import handleError from '../../helpers/handleError';
+import Clients from '../../models/Clients';
 import Notifications from '../../models/Notifications';
 import { NotificationModel } from '../../types';
 
@@ -8,9 +9,7 @@ const router = Router();
 
 router.get('/', authorizateRoute, async (req: Request, res: Response) => {
   try {
-    const allNotifications = await Notifications.findAll({
-      include: { all: true },
-    });
+    const allNotifications = await Notifications.findAll({ include: Clients });
     res.json(allNotifications);
   } catch (error) {
     res.json(handleError(error as string));
@@ -24,11 +23,14 @@ router.post('/create', async (req: Request, res: Response) => {
     }: NotificationModel = req.body;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const result: any = await Notifications.create({
+    const notification: any = await Notifications.create({
       idClient, idUser, type, desc, statusNotification,
     });
 
-    if (result.dataValues.idNotification) return res.status(200).json({ msg: 'La notificación se ha sido creado correctamente' });
+    if (notification.dataValues.idNotification) {
+      notification.addClients(idClient);
+      return res.status(200).json({ msg: 'La notificación se ha sido creado correctamente' });
+    }
     return res.status(406).json(handleError('Algo salió mal'));
   } catch (error) {
     return res.json(handleError(error as string));

@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Op } from 'sequelize';
 import handleError from '../../helpers/handleError';
 import Clients from '../../models/Clients';
+import Notifications from '../../models/Notifications';
 
 async function getClients(req: Request, res: Response) {
   try {
@@ -13,6 +14,7 @@ async function getClients(req: Request, res: Response) {
           [Op.substring]: [value.toUpperCase()],
         },
       },
+      include: { model: Notifications },
     });
 
     return res.json(client.length ? client : handleError('No se encontró ningún usuario'));
