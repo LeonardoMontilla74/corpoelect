@@ -19,12 +19,12 @@ router.get('/', authorizateRoute, async (req: Request, res: Response) => {
 router.post('/create', async (req: Request, res: Response) => {
   try {
     const {
-      idClient, idUser, type, desc, statusNotification,
+      idClient, userName, type, desc, statusNotification,
     }: NotificationModel = req.body;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const notification: any = await Notifications.create({
-      idClient, idUser, type, desc, statusNotification,
+      idClient, userName, type, desc, statusNotification,
     });
 
     if (notification.dataValues.idNotification) {

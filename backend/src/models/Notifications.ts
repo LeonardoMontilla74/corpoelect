@@ -10,8 +10,8 @@ const Notifications = sequelize.define('Notifications', {
   idClient: {
     type: DataTypes.INTEGER,
   },
-  idUser: {
-    type: DataTypes.INTEGER,
+  userName: {
+    type: DataTypes.STRING,
   },
   type: {
     type: DataTypes.STRING,

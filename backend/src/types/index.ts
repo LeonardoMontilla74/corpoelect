@@ -56,7 +56,7 @@ export type Client = {
 export type NotificationModel = {
   idNotification: number
   idClient: number
-  idUser: number
+  userName: string
   type: string
   desc: string
   statusNotification: string
