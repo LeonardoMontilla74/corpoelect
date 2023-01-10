@@ -1,10 +1,10 @@
 import { useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ClientsContext from '../../context/Clients/ClientsContext';
 import UserContext from '../../context/Users/UserContext';
 
 function NotificationsList() {
-  const { clientState, getAllNotifications } = useContext(ClientsContext);
+  const { clientState, getAllNotifications, deleteNotification } = useContext(ClientsContext);
   const { notifications } = clientState;
 
   const { userState } = useContext(UserContext);
@@ -12,7 +12,15 @@ function NotificationsList() {
 
   const navigate = useNavigate();
 
-  useEffect(() => { getAllNotifications(token); }, []);
+  useEffect(() => {
+    if (!notifications) {
+      getAllNotifications(token);
+    }
+  }, []);
+
+  function handleDelete(idNotification: number) {
+    deleteNotification(token, idNotification);
+  }
 
   return (
     <main className="container">
@@ -25,8 +33,15 @@ function NotificationsList() {
                   key={n.idNotification}
                   className="col-sm-12 col-md-6 col-lg-3 border rounded-2 m-3 p-3 card bg-dark"
                 >
-                  <p>{`El cliente es: ${n.idClient}`}</p>
-                  <p>{`El usuario es: ${n.idUser}`}</p>
+                  <Link
+                    style={{ textDecoration: 'none' }}
+                    to={`/details/${n.idClient}`}
+                    className="text-white col-sm-10 col-md-7 col-lg-5 card border-2 shadow m-3 bg-dark"
+                  >
+                    <p>{`El cliente es: ${n.Clients?.[0].NOMBRE}`}</p>
+                  </Link>
+
+                  <p>{`Notificación creada por: ${n.userName}`}</p>
                   <p>{`El tipo de reclamo es: ${n.type}`}</p>
                   <p>{`Descripción: ${n.desc}`}</p>
                   <p>{`Estado del reclamo: ${n.statusNotification}`}</p>
@@ -39,6 +54,7 @@ function NotificationsList() {
                   <button
                     type="button"
                     className="btn btn-danger m-2"
+                    onClick={() => handleDelete(n.idNotification)}
                   >
                     Borrar
                   </button>

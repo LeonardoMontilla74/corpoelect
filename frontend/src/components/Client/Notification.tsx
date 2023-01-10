@@ -1,6 +1,7 @@
 import {
   ChangeEvent, SyntheticEvent, useContext, useState,
 } from 'react';
+import { Alert } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import ClientsContext from '../../context/Clients/ClientsContext';
 import UserContext from '../../context/Users/UserContext';
@@ -30,7 +31,7 @@ function Notification() {
     const notification = {
       idNotification: 0,
       idClient: Number(idClient),
-      idUser: user.idUser,
+      userName: user.name,
       type: inputs.type,
       desc: inputs.desc,
       statusNotification: 'Pendiente por revisión',
@@ -38,11 +39,15 @@ function Notification() {
     const result = await createNotification(notification);
     setMsg(result);
     setInputs({ type: '', desc: '' });
-    navigate('/home');
   }
   return (
     <div className="container-fluid">
-      <h4>{msg}</h4>
+      <Alert
+        variant="success"
+        onClick={() => navigate('/home')}
+      >
+        {msg}
+      </Alert>
       <div className="row">
         <div className="col-sm-7 col-md-5 col-lg-4 mx-auto">
           <form className=" form-group" onSubmit={submitNotification}>

@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import PrivateRoute from './components/userComponents/PrivateRoute';
 import ClientDetails from './components/Client/ClientDetails';
-import NotificationsList from './components/userComponents/NotificationsList';
+import NotificationsList from './components/Client/NotificationsList';
 
 function App() {
   return (

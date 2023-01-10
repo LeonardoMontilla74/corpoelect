@@ -28,10 +28,23 @@ function ClientsStoreProvider({ children }: ChildrenProps) {
     setClientState(CLIENTS_STATE);
   }
 
+  async function deleteNotification(token: string, idNotification: number) {
+    axios.delete(
+      '/clients/notifications/delete',
+      { headers: { token, idNotification } },
+    );
+    getAllNotifications(token);
+  }
+
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <ClientsContext.Provider value={{
-      clientState, getClient, cleanClients, createNotification, getAllNotifications,
+      clientState,
+      getClient,
+      cleanClients,
+      createNotification,
+      getAllNotifications,
+      deleteNotification,
     }}
     >
       {children}

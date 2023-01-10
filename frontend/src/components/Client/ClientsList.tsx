@@ -36,6 +36,7 @@ function ClientsList() {
                   {' '}
                   {c.DEUDA}
                 </span>
+                {c.Notifications?.length && <p className={c.Notifications?.length ? 'text-danger' : ''}>Tiene una notificación pendiente</p>}
               </Link>
             ))
             : <h4>{error?.msg}</h4>

@@ -52,8 +52,12 @@ router.put('/update', authorizateRoute, async (req: Request, res: Response) => {
 });
 
 router.delete('/delete', authorizateRoute, async (req: Request, res: Response) => {
-  const { idNotification } = req.headers;
-  const notificationDelete = await Notifications.destroy({ where: { idNotification } });
+  const { idnotification } = req.headers;
+  const notificationDelete = await Notifications.destroy(
+    {
+      where: { idNotification: idnotification },
+    },
+  );
 
   if (notificationDelete === 1) return res.status(200).json({ msg: 'Notificación borrada correctamente' });
   return res.status(406).json(handleError('Algo salió mal'));

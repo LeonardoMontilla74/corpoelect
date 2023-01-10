@@ -60,4 +60,5 @@ export type NotificationModel = {
   type: string
   desc: string
   statusNotification: string
+  Clients?: Client[]
 }

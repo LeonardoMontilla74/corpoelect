@@ -10,12 +10,12 @@ router.get('/users', async (req: Request, res: Response) => {
 });
 
 router.put('/users/update', async (req: Request, res: Response) => {
-  const { id, rol, auth } = req.body;
+  const { idUser, rol, auth } = req.body;
 
   try {
     const userUpdate = await Users.update(
       { rol, auth },
-      { where: { id } },
+      { where: { idUser } },
     );
 
     if (userUpdate[0] === 1) return res.status(200).json({ msg: 'El usuario ha sido actualizado correctamente' });

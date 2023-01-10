@@ -63,7 +63,9 @@ export type Client = {
   VOL_PRI: string
   VOL_SEC: string
   VSTELLE: string
+  Notifications?: NotificationModel[]
 }
+
 export type ClientsState = {
   client?: Client[]
   error?: MsgError
@@ -76,4 +78,5 @@ export type ClientContext = {
   cleanClients: () => void
   createNotification: (notification: NotificationModel) => Promise<string>
   getAllNotifications: (token: string) => void
+  deleteNotification: (token: string, idNotification: number) => void
 }
