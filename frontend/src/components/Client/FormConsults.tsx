@@ -39,7 +39,7 @@ function FormConsults() {
                 aria-label="Cambiar rol de usuario"
                 onChange={(e) => handleParam(e)}
               >
-                <option defaultValue="user">Consultar clientes por:</option>
+                <option defaultValue="NOMBRE">Consultar clientes por:</option>
                 <option value="NOMBRE">Nombre</option>
                 <option value="CONTRATO">Contrato</option>
                 <option value="NIC">N.I.C</option>

@@ -68,6 +68,7 @@ export type Client = {
 
 export type ClientsState = {
   client?: Client[]
+  clientDetails?: Client
   error?: MsgError
   notifications?: NotificationModel[]
 }
@@ -75,6 +76,7 @@ export type ClientsState = {
 export type ClientContext = {
   clientState: ClientsState
   getClient: (param: string, value: string) => void
+  findClientById: (idClient: number) => void
   cleanClients: () => void
   createNotification: (notification: NotificationModel) => Promise<string>
   getAllNotifications: (token: string) => void

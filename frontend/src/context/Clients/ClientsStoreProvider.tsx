@@ -14,6 +14,15 @@ function ClientsStoreProvider({ children }: ChildrenProps) {
     if (client?.length > 0) { setClientState({ client }); } else { setClientState({ error }); }
   }
 
+  async function findClientById(idClient: number) {
+    const result = await axios.post('/clients/getId', { idClient });
+    const clientDetails = result.data;
+    const error = result.data;
+    if (clientDetails) {
+      setClientState({ ...clientState, clientDetails });
+    } else { setClientState({ error }); }
+  }
+
   async function createNotification(notification: NotificationModel) {
     const result = await axios.post('clients/notifications/create', notification);
     return result.data.msg;
@@ -41,6 +50,7 @@ function ClientsStoreProvider({ children }: ChildrenProps) {
     <ClientsContext.Provider value={{
       clientState,
       getClient,
+      findClientById,
       cleanClients,
       createNotification,
       getAllNotifications,

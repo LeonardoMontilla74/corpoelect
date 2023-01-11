@@ -3,6 +3,7 @@ import { ClientContext, ClientsState } from '../../types';
 
 export const CLIENTS_STATE: ClientsState = {
   client: [],
+  clientDetails: undefined,
   error: { msg: '' },
   notifications: [],
 };

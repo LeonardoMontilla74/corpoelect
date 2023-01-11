@@ -13,7 +13,7 @@ function NotificationsList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!notifications) {
+    if (!notifications?.length) {
       getAllNotifications(token);
     }
   }, []);
@@ -33,18 +33,20 @@ function NotificationsList() {
                   key={n.idNotification}
                   className="col-sm-12 col-md-6 col-lg-3 border rounded-2 m-3 p-3 card bg-dark"
                 >
-                  <Link
-                    style={{ textDecoration: 'none' }}
-                    to={`/details/${n.idClient}`}
-                    className="text-white col-sm-10 col-md-7 col-lg-5 card border-2 shadow m-3 bg-dark"
-                  >
-                    <p>{`El cliente es: ${n.Clients?.[0].NOMBRE}`}</p>
-                  </Link>
-
-                  <p>{`Notificación creada por: ${n.userName}`}</p>
-                  <p>{`El tipo de reclamo es: ${n.type}`}</p>
+                  <div className="container">
+                    {`Cliente: ${n.Clients?.[0].NOMBRE}`}
+                    <Link
+                      style={{ textDecoration: 'none' }}
+                      to={`/details/${n.idClient}`}
+                      className="border rounded-2 m-3 p-3 card bg-dark"
+                    >
+                      Ver detalles del cliente
+                    </Link>
+                  </div>
+                  <p>{`Creada por: ${n.userName}`}</p>
+                  <p>{`Tipo de reclamo: ${n.type}`}</p>
                   <p>{`Descripción: ${n.desc}`}</p>
-                  <p>{`Estado del reclamo: ${n.statusNotification}`}</p>
+                  <p>{`Estado: ${n.statusNotification}`}</p>
                   <button
                     type="button"
                     className="btn btn-warning m-2"

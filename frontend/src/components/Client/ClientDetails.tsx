@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ClientsContext from '../../context/Clients/ClientsContext';
 import Notification from './Notification';
@@ -6,8 +6,11 @@ import Notification from './Notification';
 function ClientDetails() {
   const { idClient } = useParams();
   const navigate = useNavigate();
-  const { clientState } = useContext(ClientsContext);
-  const c = clientState.client?.find((client) => client.idClient === Number(idClient));
+  const { clientState, findClientById } = useContext(ClientsContext);
+
+  useEffect(() => { findClientById(Number(idClient)); }, []);
+
+  const c = clientState.clientDetails;
 
   const [showNotification, setShowNotification] = useState(false);
 

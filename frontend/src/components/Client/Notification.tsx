@@ -42,12 +42,15 @@ function Notification() {
   }
   return (
     <div className="container-fluid">
-      <Alert
-        variant="success"
-        onClick={() => navigate('/home')}
-      >
-        {msg}
-      </Alert>
+      {msg ? (
+        <Alert
+          variant="success"
+          onClick={() => navigate('/home')}
+        >
+          {msg}
+        </Alert>
+      )
+        : null}
       <div className="row">
         <div className="col-sm-7 col-md-5 col-lg-4 mx-auto">
           <form className=" form-group" onSubmit={submitNotification}>
