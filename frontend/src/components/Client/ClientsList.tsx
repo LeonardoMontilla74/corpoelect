@@ -8,6 +8,10 @@ function ClientsList() {
   const { error } = clientState;
   const numberClients = client?.length;
 
+  function dowloadItems() {
+    localStorage.setItem('localClient', JSON.stringify(client));
+  }
+
   return (
     <div className="container-fluid">
       <div>{numberClients ? <h4>{`Se encontró ${numberClients}`}</h4> : null}</div>
@@ -46,6 +50,13 @@ function ClientsList() {
             : <h4>{error?.msg}</h4>
         }
       </div>
+      <button
+        type="button"
+        className="btn btn-outline-success"
+        onClick={dowloadItems}
+      >
+        Descargar
+      </button>
     </div>
   );
 }

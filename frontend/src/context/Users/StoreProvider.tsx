@@ -28,6 +28,8 @@ function StoreProvider({ children }: ChildrenProps) {
     const user: User = result.data.userDB;
     const { token } = result.data;
     const error: MsgError = result.data.userDB;
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('token', JSON.stringify(token));
 
     if (user.name) {
       setUserState({ ...userState, user, token });
@@ -63,12 +65,33 @@ function StoreProvider({ children }: ChildrenProps) {
     getAllUsers(token);
   }
 
-  function cleanUsers() { setUserState(INITIAL_STATE); }
+  function cleanUsers() {
+    setUserState(INITIAL_STATE);
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+  }
+
+  function checkLocalStorage() {
+    const isUser = localStorage.getItem('user');
+    const hasToken = localStorage.getItem('token');
+    if (isUser && hasToken) {
+      const userLocal = JSON.parse(isUser);
+      const tokenLocal = JSON.parse(hasToken);
+      setUserState({ ...userState, user: userLocal, token: tokenLocal });
+    }
+  }
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <UserContext.Provider value={{
-      userState, register, login, getAllUsers, updateUser, deleteUser, cleanUsers,
+      userState,
+      register,
+      login,
+      getAllUsers,
+      updateUser,
+      deleteUser,
+      cleanUsers,
+      checkLocalStorage,
     }}
     >
       {children}

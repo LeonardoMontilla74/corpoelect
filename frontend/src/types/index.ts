@@ -19,6 +19,7 @@ export type Context = {
   updateUser: (token: string, id: number, rol?: 'admin' | 'user', auth?: boolean) => void
   deleteUser: (token: string, id: number) => void
   cleanUsers: () => void
+  checkLocalStorage: () => void
 }
 
 // _____________ Clients ________________
