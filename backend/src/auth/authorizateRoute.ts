@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
-import handleError from '../helpers/handleError';
+import handleError from '../utils/handleError';
 import { User } from '../types';
 
 const { ADMIN_TOKEN } = process.env;

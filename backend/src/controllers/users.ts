@@ -1,36 +1,67 @@
-import { Request, Response, Router } from 'express';
-import handleError from '../helpers/handleError';
-import Users from '../models/Users';
+import { Request, Response } from 'express';
+import handleError from '../utils/handleError';
+import {
+  getAll, login, register, update, userDelete,
+} from '../services/users.services';
+import { User } from '../types';
 
-const router = Router();
-
-router.get('/users', async (req: Request, res: Response) => {
-  const allUsers = await Users.findAll({ attributes: { exclude: ['password'] } });
-  return res.status(200).json(allUsers);
-});
-
-router.put('/users/update', async (req: Request, res: Response) => {
-  const { idUser, rol, auth } = req.body;
-
+// GET => http://localhost:4000/users   -----> headers (token ADMIN)
+export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const userUpdate = await Users.update(
-      { rol, auth },
-      { where: { idUser } },
-    );
-
-    if (userUpdate[0] === 1) return res.status(200).json({ msg: 'El usuario ha sido actualizado correctamente' });
-    return res.status(406).json(handleError('No se encontró el usuario'));
-  } catch (error) {
-    return handleError('Error antes de actualizar el usuario', error);
+    const allUsers = await getAll();
+    return res.status(200).json(allUsers);
+  } catch (e) {
+    return res.status(500).json(handleError('CONTROLLERS_USER_ALL', e));
   }
-});
+};
 
-router.delete('/users/delete', async (req: Request, res: Response) => {
-  const { id } = req.headers;
-  const userDelete = await Users.destroy({ where: { id } });
+// POST => http://localhost:4000/users/register  -----> body (name, pass)
+export const registerUser = async (req: Request, res: Response) => {
+  try {
+    const { name, password }: User = req.body;
+    if (name && password) {
+      const userCreate = await register({ name, password });
+      return res.status(200).json(userCreate);
+    }
+    return res.status(206).json(handleError('No suminitró los datos requeridos'));
+  } catch (e) {
+    return res.status(500).json(handleError('CONTROLLERS_USER_REGISTER', e));
+  }
+};
 
-  if (userDelete === 1) return res.status(200).json({ msg: 'Usuario borrado correctamente' });
-  return res.status(202).json(handleError('No se ha encontrado el usuario'));
-});
+// POST => http://localhost:4000/users/login -----> body (name, pass)
+export const loginUser = async (req: Request, res: Response) => {
+  try {
+    const { name, password }: User = req.body;
+    if (name && password) {
+      const userDB = await login({ name, password });
+      return res.status(200).json(userDB);
+    }
 
-export default router;
+    return res.status(206).json(handleError('No suminitró los datos requeridos'));
+  } catch (e) {
+    return res.status(500).json(handleError('CONTROLLERS_USER_LOGIN', e));
+  }
+};
+
+// PUT => http://localhost:4000/users/update --->  headers (token ADMIN)
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const user = req.body;
+    const msgResult = await update(user);
+    return res.status(200).json(msgResult);
+  } catch (e) {
+    return res.status(500).json(handleError('CONTROLLERS_USER_UPDATE', e));
+  }
+};
+
+// DELETE => http://localhost:4000/users/delete  ---> headers (token ADMIN)
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const user = req.body;
+    const msgResult = await userDelete(user);
+    return res.status(202).json(msgResult);
+  } catch (e) {
+    return res.status(500).json(handleError('CONTROLLERS_USER_DELETE', e));
+  }
+};

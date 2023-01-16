@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import server from './src/app';
 import sequelize from './src/databases';
-import preloaderAdmin from './src/helpers/preloaderAdmin';
+import preloaderAdmin from './src/utils/preloaderAdmin';
 
 const PORT = process.env.PORT || 3001;
 

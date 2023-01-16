@@ -1,5 +1,5 @@
 export type User = {
-  idUser: number
+  idUser?: number
   name: string
   password: string | number
   rol?: 'admin' | 'user'
