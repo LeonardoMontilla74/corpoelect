@@ -35,9 +35,16 @@ export const login = async ({ name, password }: User) => {
   return handleError('Usuario o contraseña incorrectos');
 };
 
-export const update = async ({ idUser, rol, auth }: User) => {
+export const update = async ({
+  idUser, name, password, rol, auth,
+}: User) => {
+  let passEncrypt = '';
+  if (password) passEncrypt = await hash((password as string), 8);
+
   const userUpdate = await Users.update(
-    { rol, auth },
+    {
+      name, password: passEncrypt, rol, auth,
+    },
     { where: { idUser } },
   );
 

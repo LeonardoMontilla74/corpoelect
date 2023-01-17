@@ -10,13 +10,13 @@ export const allClients = async (param: string, value: string) => {
         [Op.substring]: [value.toUpperCase()],
       },
     },
-    include: { model: Notifications },
+    include: Notifications,
   });
   return client.length ? client : handleError('No se encontró ningún cliente');
 };
 
 export const getClient = async (idClient: number) => {
-  const client = await Clients.findByPk(idClient);
+  const client = await Clients.findByPk(idClient, { include: Notifications });
   return client || handleError('No se encontró ningún usuario');
 };
 
