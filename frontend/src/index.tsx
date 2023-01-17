@@ -5,6 +5,7 @@ import axios from 'axios';
 import App from './App';
 import StoreProvider from './context/Users/StoreProvider';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import ClientsStoreProvider from './context/Clients/ClientsStoreProvider';
 
 axios.defaults.baseURL = 'http://localhost:4000';

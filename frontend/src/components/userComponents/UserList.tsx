@@ -1,4 +1,5 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { User } from '../../../../backend/src/types';
 import UserContext from '../../context/Users/UserContext';
 
@@ -7,33 +8,50 @@ function UserList({
 }: User) {
   const { userState, updateUser, deleteUser } = useContext(UserContext);
   const { token } = userState;
-  const [alert, setAlert] = useState(false);
   const isActive = auth ? 'Activo' : 'Inactivo';
   const cargo = rol === 'admin' ? 'Administrador' : 'Usuario';
 
   function handleRol(e: React.ChangeEvent<HTMLSelectElement>) {
     const rolChange = e.target.value;
     updateUser(token, idUser as number, undefined, undefined, rolChange as 'admin' | 'user', true);
-    setAlert(true);
-    setInterval(() => {
-      setAlert(false);
-    }, 3000);
+    toast.info('Cargo asignado', {
+      position: 'top-center',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
   }
 
   function handleAuth() {
     updateUser(token, idUser as number, undefined, undefined, undefined, !auth);
-    setAlert(true);
-    setInterval(() => {
-      setAlert(false);
-    }, 3000);
+    toast.warning('Estado actualizado', {
+      position: 'top-center',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
   }
 
   function handleDelete() {
     deleteUser(token, idUser as number);
-    setAlert(true);
-    setInterval(() => {
-      setAlert(false);
-    }, 3000);
+    toast.error('Usuario borrado con exito', {
+      position: 'top-center',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
   }
 
   return (
@@ -83,15 +101,7 @@ function UserList({
       >
         Borrar Usuario
       </button>
-
-      {
-        alert && (
-          <div className="alert alert-success" role="alert">
-            Actualizado correctamente
-          </div>
-        )
-      }
-
+      <ToastContainer />
     </div>
   );
 }

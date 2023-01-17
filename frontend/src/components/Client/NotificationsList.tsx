@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import ClientsContext from '../../context/Clients/ClientsContext';
 import UserContext from '../../context/Users/UserContext';
 
@@ -16,6 +17,16 @@ function NotificationsList() {
 
   function handleDelete(idNotification: number) {
     deleteNotification(token, idNotification);
+    toast.error('Notificación borrada con exito', {
+      position: 'top-center',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
   }
 
   return (
@@ -76,6 +87,7 @@ function NotificationsList() {
       >
         Regresar
       </button>
+      <ToastContainer />
     </main>
   );
 }

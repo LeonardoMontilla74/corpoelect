@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import UserContext from '../context/Users/UserContext';
 
 function Register() {
@@ -7,7 +8,19 @@ function Register() {
 
   useEffect(() => {
     cleanUsers();
-  }, []);
+    if (error?.msg) {
+      toast.error(`${error.msg}`, {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    }
+  }, [error?.msg]);
 
   const [input, setInput] = useState({
     idUser: 0,
@@ -74,6 +87,7 @@ function Register() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

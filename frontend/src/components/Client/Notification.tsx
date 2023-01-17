@@ -1,7 +1,7 @@
 import {
-  ChangeEvent, SyntheticEvent, useContext, useState,
+  ChangeEvent, SyntheticEvent, useContext, useState, useEffect,
 } from 'react';
-import { Alert } from 'react-bootstrap';
+import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import ClientsContext from '../../context/Clients/ClientsContext';
 import UserContext from '../../context/Users/UserContext';
@@ -18,6 +18,21 @@ function Notification() {
 
   const [inputs, setInputs] = useState({ type: '', desc: '' });
   const [msg, setMsg] = useState('');
+
+  useEffect(() => {
+    if (msg) {
+      toast.success(`${msg}`, {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: 1,
+        theme: 'colored',
+      });
+    }
+  }, [msg]);
 
   function handleType(e: ChangeEvent<HTMLSelectElement>) {
     setInputs({ ...inputs, type: e.target.value });
@@ -43,15 +58,6 @@ function Notification() {
   }
   return (
     <div className="container-fluid">
-      {msg ? (
-        <Alert
-          variant="success"
-          onClick={() => navigate('/home')}
-        >
-          {msg}
-        </Alert>
-      )
-        : null}
       <div className="row">
         <div className="col-sm-7 col-md-5 col-lg-4 mx-auto">
           <form className=" form-group" onSubmit={submitNotification}>
@@ -85,6 +91,7 @@ function Notification() {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

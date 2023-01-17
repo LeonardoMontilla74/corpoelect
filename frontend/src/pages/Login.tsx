@@ -2,6 +2,7 @@ import React, {
   useState, useContext, SyntheticEvent, useEffect,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import UserContext from '../context/Users/UserContext';
 
 function Login() {
@@ -11,7 +12,19 @@ function Login() {
 
   useEffect(() => {
     cleanUsers();
-  }, []);
+    if (error?.msg) {
+      toast.error(`${error.msg}`, {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    }
+  }, [error?.msg]);
 
   const [input, setInput] = useState({
     idUser: 0,
@@ -68,14 +81,6 @@ function Login() {
                   value="Iniciar sesión"
                 />
               </form>
-              {error?.msg && (
-                <div
-                  className="alert alert-danger mt-2"
-                  role="alert"
-                >
-                  {error.msg}
-                </div>
-              )}
             </div>
             <h6 className="card-title text-black text-center mb-5 fw-bold fs-6">
               ¿No tienes cuenta?
@@ -91,6 +96,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
