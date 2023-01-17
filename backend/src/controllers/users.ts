@@ -58,8 +58,8 @@ export const updateUser = async (req: Request, res: Response) => {
 // DELETE => http://localhost:4000/users/delete  ---> headers (token ADMIN)
 export const deleteUser = async (req: Request, res: Response) => {
   try {
-    const user = req.body;
-    const msgResult = await userDelete(user);
+    const { idUser } = req.body;
+    const msgResult = await userDelete(idUser);
     return res.status(202).json(msgResult);
   } catch (e) {
     return res.status(500).json(handleError('CONTROLLERS_USER_DELETE', e));

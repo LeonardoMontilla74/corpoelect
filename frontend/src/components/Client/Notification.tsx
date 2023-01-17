@@ -12,6 +12,7 @@ function Notification() {
 
   const { userState } = useContext(UserContext);
   const { user } = userState;
+  const { token } = userState;
 
   const { createNotification } = useContext(ClientsContext);
 
@@ -36,7 +37,7 @@ function Notification() {
       desc: inputs.desc,
       statusNotification: 'Pendiente por revisión',
     };
-    const result = await createNotification(notification);
+    const result = await createNotification(token, notification);
     setMsg(result);
     setInputs({ type: '', desc: '' });
   }
@@ -79,7 +80,7 @@ function Notification() {
               type="submit"
               value="Enviar"
               className="btn btn-success"
-              disabled={!inputs.type && !inputs.desc}
+              disabled={!inputs.type}
             />
           </form>
         </div>

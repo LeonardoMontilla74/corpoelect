@@ -11,56 +11,68 @@ function StoreProvider({ children }: ChildrenProps) {
   const [userState, setUserState] = useState(INITIAL_STATE);
 
   async function register({ name, password }: User) {
-    const result = await axios.post('/register', { name, password });
-    const user: User = result.data.userDB;
-    const error: MsgError = result.data.userDB;
+    const result = await axios.post('/users/register', { name, password });
 
-    if (user.name) {
+    if (result.data.msg) {
+      const { msg }: MsgError = result.data;
+      setUserState({ ...userState, error: { msg } });
+    } else {
+      const user = result.data;
       setUserState({ ...userState, user });
       navigate('/home');
-    } else {
-      setUserState({ ...userState, error });
     }
   }
 
   async function login({ name, password }: User) {
-    const result = await axios.post('login', { name, password });
-    const user: User = result.data.userDB;
-    const { token } = result.data;
-    const error: MsgError = result.data.userDB;
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', JSON.stringify(token));
+    const result = await axios.post('users/login', { name, password });
 
-    if (user.name) {
+    if (result.data.msg) {
+      const { msg }: MsgError = result.data;
+      setUserState({ ...userState, error: { msg } });
+    } else {
+      const user: User = result.data.userDB;
+      const { token } = result.data;
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('token', JSON.stringify(token));
       setUserState({ ...userState, user, token });
       navigate('/home');
-    } else {
-      setUserState({ ...userState, error });
     }
   }
 
   async function getAllUsers(token: string) {
     const allUsers = await axios.get(
-      '/admin/users',
+      '/users',
       { headers: { token } },
     );
 
     setUserState({ ...userState, allUsers: allUsers.data });
   }
 
-  async function updateUser(token: string, idUser: number, rol?: 'admin' | 'user', auth?: boolean) {
+  async function updateUser(
+    token: string,
+    idUser: number,
+    name?: string,
+    password?: string,
+    rol?: 'admin' | 'user',
+    auth?: boolean,
+  ) {
     await axios.put(
-      'admin/users/update',
-      { idUser, rol, auth },
+      '/users/update',
+      {
+        idUser, name, password, rol, auth,
+      },
       { headers: { token } },
     );
     getAllUsers(token);
   }
 
-  async function deleteUser(token: string, id: number) {
+  async function deleteUser(token: string, idUser: number) {
     axios.delete(
-      'admin/users/delete',
-      { headers: { token, id } },
+      '/users/delete',
+      {
+        headers: { token },
+        data: { idUser },
+      },
     );
     getAllUsers(token);
   }

@@ -31,8 +31,11 @@ function AdminDashboard() {
               />
             ))
             : (
-              <div className="m-4 spinner-grow text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
+              <div className="container">
+                <div className="m-4 spinner-grow text-primary" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+                <p className="text-danger">No hay usuarios para mostrar</p>
               </div>
             )
         }

@@ -50,13 +50,18 @@ function ClientsList() {
             : <h4>{error?.msg}</h4>
         }
       </div>
-      <button
-        type="button"
-        className="btn btn-outline-success"
-        onClick={dowloadItems}
-      >
-        Descargar
-      </button>
+      <div className="container">
+        {client?.length ? (
+          <button
+            type="button"
+            className="btn btn-outline-success"
+            onClick={dowloadItems}
+          >
+            Descargar
+          </button>
+        )
+          : null}
+      </div>
     </div>
   );
 }

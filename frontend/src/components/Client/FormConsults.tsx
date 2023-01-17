@@ -1,8 +1,11 @@
 import React, { SyntheticEvent, useContext, useState } from 'react';
 import ClientsContext from '../../context/Clients/ClientsContext';
+import UserContext from '../../context/Users/UserContext';
 
 function FormConsults() {
   const { getClient } = useContext(ClientsContext);
+  const { userState } = useContext(UserContext);
+  const { token } = userState;
 
   const [input, setInput] = useState({
     param: '',
@@ -25,7 +28,7 @@ function FormConsults() {
 
   async function submitData(e: SyntheticEvent) {
     e.preventDefault();
-    getClient(input.param, input.value);
+    getClient(token, input.param, input.value);
   }
 
   return (

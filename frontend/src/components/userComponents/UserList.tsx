@@ -13,7 +13,7 @@ function UserList({
 
   function handleRol(e: React.ChangeEvent<HTMLSelectElement>) {
     const rolChange = e.target.value;
-    updateUser(token, idUser, rolChange as 'admin' | 'user', true);
+    updateUser(token, idUser as number, undefined, undefined, rolChange as 'admin' | 'user', true);
     setAlert(true);
     setInterval(() => {
       setAlert(false);
@@ -21,7 +21,7 @@ function UserList({
   }
 
   function handleAuth() {
-    updateUser(token, idUser, undefined, !auth);
+    updateUser(token, idUser as number, undefined, undefined, undefined, !auth);
     setAlert(true);
     setInterval(() => {
       setAlert(false);
@@ -29,7 +29,7 @@ function UserList({
   }
 
   function handleDelete() {
-    deleteUser(token, idUser);
+    deleteUser(token, idUser as number);
     setAlert(true);
     setInterval(() => {
       setAlert(false);

@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { NotificationModel } from '../types';
 import handleError from '../utils/handleError';
 import {
   createNotification, deleteNotification, getAllNotification, updateNotification,
@@ -18,7 +17,7 @@ export const getNotications = async (req: Request, res: Response) => {
 // POST => http://localhost:4000/notifications/create  body (notifications)
 export const createNotifications = async (req: Request, res: Response) => {
   try {
-    const notification: NotificationModel = req.body;
+    const { notification } = req.body;
     const result = await createNotification(notification);
     return res.send(result);
   } catch (e) {
@@ -41,7 +40,7 @@ export const updateNotications = async (req: Request, res: Response) => {
 export const deleteNotiications = async (req: Request, res: Response) => {
   try {
     const { idNotification } = req.body;
-    const result = await deleteNotification(idNotification);
+    const result = await deleteNotification(Number(idNotification));
     return res.send(result);
   } catch (e) {
     return res.status(500).json(handleError('ERROR_CONTROLLER_NOTIFICATIONS', e));

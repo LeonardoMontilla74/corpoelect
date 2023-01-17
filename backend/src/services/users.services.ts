@@ -52,9 +52,6 @@ export const update = async ({
   return { msg: 'No se encontró el usuario' };
 };
 
-export const userDelete = async ({ idUser }: User) => {
-  const user = await Users.destroy({ where: { idUser } });
-
-  if (user === 1) return { msg: 'Usuario borrado correctamente' };
-  return { msg: 'No se encontró el usuario' };
+export const userDelete = async (idUser: number) => {
+  await Users.destroy({ where: { idUser } });
 };

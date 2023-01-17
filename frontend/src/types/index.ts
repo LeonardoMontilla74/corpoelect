@@ -13,10 +13,17 @@ export type ChildrenProps = {
 
 export type Context = {
   userState: InitialState
-  register: ({ name, password }: User) => void
-  login: ({ name, password }: User) => void
   getAllUsers: (token: string) => void
-  updateUser: (token: string, id: number, rol?: 'admin' | 'user', auth?: boolean) => void
+  login: ({ name, password }: User) => void
+  register: ({ name, password }: User) => void
+  updateUser: (
+    token: string,
+    idUser: number,
+    name?: string,
+    password?: string,
+    rol?: 'admin' | 'user',
+    auth?: boolean
+  ) => void
   deleteUser: (token: string, id: number) => void
   cleanUsers: () => void
   checkLocalStorage: () => void
@@ -76,10 +83,11 @@ export type ClientsState = {
 
 export type ClientContext = {
   clientState: ClientsState
-  getClient: (param: string, value: string) => void
-  findClientById: (idClient: number) => void
+  getClient: (token: string, param: string, value: string) => void
+  findClientById: (token: string, idClient: number) => void
   cleanClients: () => void
-  createNotification: (notification: NotificationModel) => Promise<string>
+  createNotification: (token: string, notification: NotificationModel) => Promise<string>
   getAllNotifications: (token: string) => void
+  updateNotification: (token: string, idNotification: number, status: string) => void
   deleteNotification: (token: string, idNotification: number) => void
 }

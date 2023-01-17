@@ -12,11 +12,7 @@ function NotificationsList() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!notifications?.length) {
-      getAllNotifications(token);
-    }
-  }, []);
+  useEffect(() => { getAllNotifications(token); }, []);
 
   function handleDelete(idNotification: number) {
     deleteNotification(token, idNotification);
@@ -64,8 +60,11 @@ function NotificationsList() {
               ))
             )
             : (
-              <div className="m-4 spinner-grow text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
+              <div className="container">
+                <div className="m-4 spinner-grow text-primary" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+                <p className="text-danger">No hay notificaciones para mostrar...</p>
               </div>
             )
         }

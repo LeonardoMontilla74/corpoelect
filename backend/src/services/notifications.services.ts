@@ -17,7 +17,7 @@ export const createNotification = async ({
   });
   if (notification) {
     notification.addClient(idClient);
-    return notification as NotificationModel;
+    return { msg: 'Notificación creada con exito' };
   }
   return { msg: 'No se pudo crear la notificación' };
 };

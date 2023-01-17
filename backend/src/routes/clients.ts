@@ -4,9 +4,9 @@ import checkToken from '../auth/checkToken';
 
 const router = Router();
 
-router.get('/', checkToken, getAllClients);
+router.post('/', checkToken, getAllClients);
 
-router.get('/getById', checkToken, getClientById);
+router.post('/getById', checkToken, getClientById);
 
 router.post('/postGPS', checkToken, insertGPS);
 

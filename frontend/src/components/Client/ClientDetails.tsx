@@ -2,13 +2,17 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ClientsContext from '../../context/Clients/ClientsContext';
 import Notification from './Notification';
+import UserContext from '../../context/Users/UserContext';
 
 function ClientDetails() {
   const { idClient } = useParams();
   const navigate = useNavigate();
   const { clientState, findClientById } = useContext(ClientsContext);
+  const { error } = clientState;
+  const { userState } = useContext(UserContext);
+  const { token } = userState;
 
-  useEffect(() => { findClientById(Number(idClient)); }, []);
+  useEffect(() => { findClientById(token, Number(idClient)); }, []);
 
   const c = clientState.clientDetails;
 
@@ -71,6 +75,9 @@ function ClientDetails() {
                   <span className="visually-hidden">Loading...</span>
                 </div>
               )
+          }
+          {
+            error?.msg && <p className="text-danger">{error.msg}</p>
           }
         </div>
       </div>
