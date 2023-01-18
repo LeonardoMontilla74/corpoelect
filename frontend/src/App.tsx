@@ -7,6 +7,8 @@ import PrivateRoute from './components/userComponents/PrivateRoute';
 import ClientDetails from './components/Client/ClientDetails';
 import NotificationsList from './components/Client/NotificationsList';
 import UserContext from './context/Users/UserContext';
+import ResponsiveExample from './components/Table';
+import DarkExample from './components/Tablenegara';
 
 function App() {
   const { checkLocalStorage } = useContext(UserContext);
@@ -15,6 +17,8 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
+      <Route path="/tab" element={<ResponsiveExample />} />
+      <Route path="/tabn" element={<DarkExample />} />
       <Route path="/register" element={<Register />} />
       <Route path="/home" element={<Home />} />
       <Route path="/admin/users" element={<PrivateRoute />} />

@@ -51,16 +51,12 @@ function StoreProvider({ children }: ChildrenProps) {
   async function updateUser(
     token: string,
     idUser: number,
-    name?: string,
-    password?: string,
     rol?: 'admin' | 'user',
     auth?: boolean,
   ) {
     await axios.put(
       '/users/update',
-      {
-        idUser, name, password, rol, auth,
-      },
+      { idUser, rol, auth },
       { headers: { token } },
     );
     getAllUsers(token);

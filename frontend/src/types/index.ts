@@ -16,14 +16,7 @@ export type Context = {
   getAllUsers: (token: string) => void
   login: ({ name, password }: User) => void
   register: ({ name, password }: User) => void
-  updateUser: (
-    token: string,
-    idUser: number,
-    name?: string,
-    password?: string,
-    rol?: 'admin' | 'user',
-    auth?: boolean
-  ) => void
+  updateUser: (token: string, idUser: number, rol?: 'admin' | 'user', auth?: boolean) => void
   deleteUser: (token: string, id: number) => void
   cleanUsers: () => void
   checkLocalStorage: () => void

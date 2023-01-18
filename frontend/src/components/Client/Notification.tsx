@@ -3,12 +3,13 @@ import {
 } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Modal } from 'react-bootstrap';
 import ClientsContext from '../../context/Clients/ClientsContext';
 import UserContext from '../../context/Users/UserContext';
 
 function Notification() {
-  const { idClient } = useParams();
   const navigate = useNavigate();
+  const { idClient } = useParams();
 
   const { userState } = useContext(UserContext);
   const { user } = userState;
@@ -28,7 +29,7 @@ function Notification() {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: 1,
+        progress: undefined,
         theme: 'colored',
       });
     }
@@ -57,9 +58,12 @@ function Notification() {
     setInputs({ type: '', desc: '' });
   }
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-sm-7 col-md-5 col-lg-4 mx-auto">
+    <>
+      <Modal show fullscreen="below-sm-down" onHide={() => navigate('/home')}>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-black">Detalles del reclamo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="text-black">
           <form className=" form-group" onSubmit={submitNotification}>
             <select
               className="form-select m-2"
@@ -74,10 +78,10 @@ function Notification() {
               <option value="Otro">Otro</option>
             </select>
             <textarea
-              className="form-textarea m-1 rounded"
+              className="form-textarea m-1 rounded col-sm-5 col-md-12 col-lg-12"
               name="description"
               placeholder="Escriba todos los datos necesarios..."
-              cols={55}
+              cols={45}
               rows={5}
               value={inputs.desc}
               onChange={handleDesc}
@@ -89,10 +93,10 @@ function Notification() {
               disabled={!inputs.type}
             />
           </form>
-        </div>
-      </div>
+        </Modal.Body>
+      </Modal>
       <ToastContainer />
-    </div>
+    </>
   );
 }
 

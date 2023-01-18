@@ -43,10 +43,6 @@ function ClientsStoreProvider({ children }: ChildrenProps) {
     setClientState({ ...clientState, notifications: result.data });
   }
 
-  function cleanClients() {
-    setClientState(CLIENTS_STATE);
-  }
-
   async function updateNotification(token: string, idNotification: number, status: string) {
     const result = await axios.put(
       '/notifications/update',
@@ -68,8 +64,13 @@ function ClientsStoreProvider({ children }: ChildrenProps) {
     getAllNotifications(token);
   }
 
+  function cleanClients() {
+    setClientState(CLIENTS_STATE);
+    localStorage.removeItem('localClient');
+  }
+
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
+  // eslint-disable-next-line react/jsx-no-constructed-context-values
     <ClientsContext.Provider value={{
       clientState,
       getClient,

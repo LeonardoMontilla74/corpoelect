@@ -23,7 +23,7 @@ function ClientsList() {
                 key={c.idClient}
                 style={{ textDecoration: 'none' }}
                 to={`/details/${c.idClient}`}
-                className="text-white col-sm-10 col-md-7 col-lg-5 card border-2 shadow m-3 bg-dark"
+                className="text-white col-sm-11 col-md-5 col-lg-3 card border-2 shadow m-3 bg-dark"
               >
                 <span>
                   Cliente:

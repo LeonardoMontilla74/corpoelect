@@ -38,7 +38,7 @@ function FormConsults() {
           <div className="col-sm-7 col-md-5 col-lg-4 mx-auto">
             <form onSubmit={submitData}>
               <select
-                className="form-select form-select-sm m-3"
+                className="form-select mb-3"
                 aria-label="Cambiar rol de usuario"
                 onChange={(e) => handleParam(e)}
               >
@@ -51,18 +51,21 @@ function FormConsults() {
                 <option value="OFICINA">Oficina</option>
                 <option value="RUTA">Ruta</option>
               </select>
-              <input
-                type="text"
-                className="m-3 form-control"
-                placeholder="Escriba aquí el dato..."
-                onChange={(e) => handleValue(e)}
-              />
-              <input
-                className="btn btn-info btn-login text-uppercase fw-bold m-3 form-control"
-                type="submit"
-                value="Consultar"
-                disabled={!input.param}
-              />
+              <div className="d-flex" role="search">
+                <input
+                  onChange={(e) => handleValue(e)}
+                  className="form-control me-2"
+                  type="search"
+                  placeholder="Escriba aquí el dato..."
+                  aria-label="Buscar"
+                />
+                <input
+                  className="btn btn-info"
+                  type="submit"
+                  value="Consultar"
+                  disabled={!input.param}
+                />
+              </div>
             </form>
           </div>
         </div>
