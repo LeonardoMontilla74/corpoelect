@@ -23,6 +23,7 @@ function FormConsultNotif() {
   async function submitData(e: SyntheticEvent, param: string) {
     e.preventDefault();
     getNotification(token, param, input.value);
+    setInput({ value: '' });
   }
 
   return (
@@ -38,6 +39,7 @@ function FormConsultNotif() {
                 className="form-control me-2"
                 type="search"
                 placeholder="Escriba el nombre..."
+                value={input.value}
                 aria-label="Buscar"
               />
               <input

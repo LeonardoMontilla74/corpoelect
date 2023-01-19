@@ -1,8 +1,7 @@
-import React, { SyntheticEvent, useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-import { ListGroup } from 'react-bootstrap';
-import Card from 'react-bootstrap/Card';
+import { Table } from 'react-bootstrap';
 import UserContext from '../../context/Users/UserContext';
 import NotificationContext from '../../context/Notifications/NotificationContext';
 
@@ -11,27 +10,22 @@ function NotificationsList() {
     notificationState,
     deleteNotification,
     updateNotification,
-    cleanNotifications,
   } = useContext(NotificationContext);
 
-  const { allNotifications } = notificationState;
+  const { allNotifications, error } = notificationState;
+  const numberNotifications = allNotifications?.length;
 
   const { userState } = useContext(UserContext);
   const { token } = userState;
 
-  const [statusNotification, setStatusNotification] = useState('');
-
-  function handleValue(e: React.ChangeEvent<HTMLSelectElement>) {
-    setStatusNotification(e.target.value);
-  }
-
-  function submitData(e: SyntheticEvent, idNotification: number) {
-    e.preventDefault();
-    updateNotification(token, idNotification, statusNotification);
-    setStatusNotification('');
-    toast.success('Actualizada', {
+  function submitData(
+    e: React.ChangeEvent<HTMLSelectElement>,
+    idNotification: number,
+  ) {
+    updateNotification(token, idNotification, e.target.value);
+    toast.success('Reclamo actualizado', {
       position: 'top-center',
-      autoClose: 3000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -39,14 +33,13 @@ function NotificationsList() {
       progress: undefined,
       theme: 'colored',
     });
-    cleanNotifications();
   }
 
   function handleDelete(idNotification: number) {
     deleteNotification(token, idNotification);
-    toast.error('Notificación borrada con exito', {
+    toast.error('Reclamo borrado con exito', {
       position: 'top-center',
-      autoClose: 3000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -57,75 +50,96 @@ function NotificationsList() {
   }
 
   return (
-    <main className="container">
-      <div className="row justify-content-center">
-        {
-          allNotifications?.map((n) => (
-
-            <Card
-              key={n.idNotification}
-              className="text-black text-center col-sm-10 col-md-4 col-lg-3 m-1"
-              style={{ minWidth: '22rem' }}
-            >
-              <Card.Body>
-                <Card.Title>{n.Clients?.[0].NOMBRE}</Card.Title>
-                <Link
-                  style={{ textDecoration: 'none' }}
-                  to={`/details/${n.idClient}`}
-                >
-                  Ver detalles del cliente
-                </Link>
-                <Card.Body>
-                  <ListGroup variant="flush">
-                    <ListGroup.Item>
-                      <strong>Creada por: </strong>
-                      {n.userName}
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <strong>Tipo de reclamo: </strong>
-                      {n.type}
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <strong>Descripción: </strong>
-                      {n.desc}
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <strong>Estado: </strong>
-                      {n.statusNotification}
-                    </ListGroup.Item>
-                  </ListGroup>
-                </Card.Body>
-                <form
-                  className="d-flex"
-                  onSubmit={(e) => submitData(e, n.idNotification)}
-                >
-                  <select
-                    className="form-select me-2"
-                    onChange={handleValue}
+    <main>
+      <div className="container-fluid">
+        <div>
+          {
+            numberNotifications
+              ? (
+                <>
+                  <h4 className="m-3 p-3">{`${numberNotifications} resultados`}</h4>
+                  <Table
+                    striped
+                    bordered
+                    hover
+                    variant="dark"
                   >
-                    <option defaultValue="Cambiar estado">Cambiar estado</option>
-                    <option value="En proceso">En proceso</option>
-                    <option value="Completada con exito">Completada con exito</option>
-                    <option value="Rechazada">Rechazada</option>
-                  </select>
-                  <input
-                    className="btn btn-sm btn-outline-info"
-                    type="submit"
-                    value="Cambiar"
-                    disabled={!statusNotification}
-                  />
-                </form>
-                <button
-                  type="button"
-                  className="btn btn-danger m-2"
-                  onClick={() => handleDelete(n.idNotification)}
-                >
-                  Borrar
-                </button>
-              </Card.Body>
-            </Card>
-          ))
-        }
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Trabajador</th>
+                        <th>Tipo de reclamo</th>
+                        <th>Descripción</th>
+                        <th>Estado:</th>
+                        <th>Fecha:</th>
+                        <th>Última actualización:</th>
+                        <th className="text-warning">Actualizar estado:</th>
+                        <th className="text-danger">Borrar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        allNotifications?.map((n, index) => (
+                          <tr
+                            key={n.idNotification}
+                          >
+                            <td>{index + 1}</td>
+
+                            <td>
+                              <Link
+                                style={{ textDecoration: 'none' }}
+                                to={`/details/${n.idClient}`}
+                                className="text-white"
+                              >
+                                {n.Clients?.[0].NOMBRE}
+                              </Link>
+                            </td>
+
+                            <td>{n.userName}</td>
+
+                            <td>{n.type}</td>
+
+                            <td>{n.desc}</td>
+
+                            <td>{n.statusNotification}</td>
+
+                            <td>{n.createdAt?.slice(0, 10)}</td>
+
+                            <td>{n.updatedAt?.slice(0, 10)}</td>
+
+                            <td>
+                              <select
+                                className="form-select"
+                                onChange={(e) => submitData(e, n.idNotification)}
+                              >
+                                <option defaultValue="Cambiar estado">Cambiar estado</option>
+                                <option value="En proceso">En proceso</option>
+                                <option value="Completada con exito">Completada con exito</option>
+                                <option value="Rechazada">Rechazada</option>
+                              </select>
+                            </td>
+
+                            <td>
+                              <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={() => handleDelete(n.idNotification)}
+                              >
+                                Borrar
+                              </button>
+
+                            </td>
+                          </tr>
+                        ))
+                      }
+                    </tbody>
+                  </Table>
+                </>
+              )
+              : <h4 className="m-3 p-3 text-danger">{error?.msg}</h4>
+          }
+        </div>
       </div>
       <ToastContainer />
     </main>

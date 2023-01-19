@@ -16,8 +16,8 @@ function NotifStoreProvider({ children }: ChildrenProps) {
     const allNotifications = result.data;
     const error = result.data;
     if (allNotifications?.length > 0) {
-      setNotificationState({ ...notificationState, allNotifications });
-    } else { setNotificationState({ ...notificationState, error }); }
+      setNotificationState({ allNotifications });
+    } else { setNotificationState({ error }); }
   }
 
   async function createNotification(token: string, notification: NotificationModel) {
@@ -35,7 +35,7 @@ function NotifStoreProvider({ children }: ChildrenProps) {
       { idNotification, statusNotification },
       { headers: { token } },
     );
-    setNotificationState({ ...notificationState, error: result.data.msg });
+    setNotificationState({ error: result.data.msg });
   }
 
   async function deleteNotification(token: string, idNotification: number) {

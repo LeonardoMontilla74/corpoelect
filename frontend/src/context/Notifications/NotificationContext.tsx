@@ -9,6 +9,8 @@ export const NOTIFICATION_STATE: NotificationState = {
     type: '',
     desc: '',
     statusNotification: '',
+    createdAt: undefined,
+    updatedAt: undefined,
     Clients: undefined,
   },
   allNotifications: [],

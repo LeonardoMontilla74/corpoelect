@@ -60,5 +60,7 @@ export type NotificationModel = {
   type: string
   desc: string
   statusNotification: string
+  createdAt?: string
+  updatedAt?: string
   Clients?: Client[]
 }

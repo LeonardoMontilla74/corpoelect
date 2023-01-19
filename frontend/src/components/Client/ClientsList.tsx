@@ -53,6 +53,7 @@ function ClientsList() {
                                 {c.NOMBRE}
                                 {
                                   c.Notifications?.length
+                                    && c.Notifications.find((n) => (n.statusNotification !== 'Completada con exito'))
                                     ? <h6 className="text-danger">Tiene un reclamo pendiente</h6>
                                     : null
                                 }

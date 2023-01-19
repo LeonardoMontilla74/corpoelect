@@ -83,7 +83,7 @@ export type ClientContext = {
 // ----------------NOTIFICATIONS --------------------
 
 export type NotificationState = {
-  notification: NotificationModel,
+  notification?: NotificationModel,
   allNotifications?: NotificationModel[],
   error?: MsgError
 }
