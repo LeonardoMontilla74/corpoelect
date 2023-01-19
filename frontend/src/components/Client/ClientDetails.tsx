@@ -29,7 +29,7 @@ function ClientDetails() {
             {
               c
                 ? (
-                  <div className="row">
+                  <div className="row justify-content-center">
                     <div className="col-sm-10 col-md-6 col-lg-5">
                       <p>{`Nombre: ${c?.NOMBRE}`}</p>
                       <p>{`Telefono: ${c?.TLF}`}</p>

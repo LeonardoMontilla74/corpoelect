@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { User } from '../../../../backend/src/types';
 import UserContext from '../../context/Users/UserContext';
-import NavBar from '../NavBar';
 
 function UserList({
   idUser, name, rol, auth,
@@ -56,57 +55,54 @@ function UserList({
   }
 
   return (
-    <>
-      <NavBar />
-      <div
-        className="col-sm-10 col-md-5 col-lg-3 border rounded-2 m-3 p-3 text-center"
-        key={idUser}
-      >
-        <h4>
-          {`Nombre: ${name}`}
-        </h4>
+    <div
+      className="col-sm-10 col-md-5 col-lg-3 border rounded-2 m-3 p-3 text-center"
+      key={idUser}
+    >
+      <h4>
+        {name}
+      </h4>
 
-        <div>
-          <p>
-            {`Cargo: ${cargo}`}
-          </p>
-          <select
-            onChange={(e) => handleRol(e)}
-            className="form-select form-select-sm"
-            aria-label="Cambiar rol de usuario"
-          >
-            <option defaultValue="user">Elegir rol:</option>
-            <option value="admin">Administrador</option>
-            <option value="user">Usuario</option>
-          </select>
-        </div>
+      <div>
+        <p>
+          {`Cargo: ${cargo}`}
+        </p>
+        <select
+          onChange={(e) => handleRol(e)}
+          className="form-select form-select-sm"
+          aria-label="Cambiar rol de usuario"
+        >
+          <option defaultValue="user">Elegir rol:</option>
+          <option value="admin">Administrador</option>
+          <option value="user">Usuario</option>
+        </select>
+      </div>
 
-        <hr />
+      <hr />
 
-        <div>
-          Estado:
-          <h5 className={auth ? 'text-success' : 'text-danger'}>{`${isActive}`}</h5>
-          <button
-            type="button"
-            onClick={handleAuth}
-            className="btn btn-outline-primary m-2"
-          >
-            Cambiar
-          </button>
-        </div>
-
-        <hr />
-
+      <div>
+        Estado:
+        <h5 className={auth ? 'text-success' : 'text-danger'}>{`${isActive}`}</h5>
         <button
           type="button"
-          onClick={handleDelete}
-          className="btn btn-outline-danger m-2"
+          onClick={handleAuth}
+          className="btn btn-outline-primary m-2"
         >
-          Borrar Usuario
+          Cambiar
         </button>
-        <ToastContainer />
       </div>
-    </>
+
+      <hr />
+
+      <button
+        type="button"
+        onClick={handleDelete}
+        className="btn btn-outline-danger m-2"
+      >
+        Borrar Usuario
+      </button>
+      <ToastContainer />
+    </div>
   );
 }
 

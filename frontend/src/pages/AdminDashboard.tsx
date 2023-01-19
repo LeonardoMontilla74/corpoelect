@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/Users/UserContext';
 import UserList from '../components/userComponents/UserList';
+import NavBar from '../components/NavBar';
 
 function AdminDashboard() {
   const { userState, getAllUsers } = useContext(UserContext);
@@ -13,12 +14,14 @@ function AdminDashboard() {
     if (rol === 'admin' && allUsers?.length === 0) getAllUsers(token);
   }, [allUsers]);
 
-  const userFilter = allUsers?.filter((u) => u.idUser !== idUser);
+  const userFilter = allUsers?.filter((u) => u.idUser !== idUser && u.name !== 'admin');
 
   return (
-    <section className="container-fluid">
-      <div className="row">
-        {
+    <>
+      <NavBar />
+      <section className="container-fluid">
+        <div className="row justify-content-center">
+          {
           userFilter?.length
             ? userFilter?.map((u) => (
               <UserList
@@ -39,15 +42,16 @@ function AdminDashboard() {
               </div>
             )
         }
-      </div>
-      <button
-        type="button"
-        onClick={() => navigate('/home')}
-        className="btn btn-primary mt-2"
-      >
-        Regresar
-      </button>
-    </section>
+        </div>
+        <button
+          type="button"
+          onClick={() => navigate('/home')}
+          className="btn btn-primary mt-2"
+        >
+          Regresar
+        </button>
+      </section>
+    </>
   );
 }
 

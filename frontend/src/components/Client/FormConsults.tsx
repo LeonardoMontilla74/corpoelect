@@ -34,7 +34,7 @@ function FormConsults() {
   return (
     <div className="container-fluid">
       <div className=" form-group">
-        <div className="row">
+        <div className="row justify-content-center">
           <div className="col-sm-7 col-md-5 col-lg-4 mx-auto">
             <form onSubmit={submitData}>
               <select

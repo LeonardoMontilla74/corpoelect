@@ -7,14 +7,10 @@ import PrivateRoute from './components/userComponents/PrivateRoute';
 import ClientDetails from './components/Client/ClientDetails';
 import NotificationsList from './components/Client/NotificationsList';
 import UserContext from './context/Users/UserContext';
-import ResponsiveExample from './components/Table';
-import DarkExample from './components/Tablenegara';
-import ClientsContext from './context/Clients/ClientsContext';
 
 function App() {
   const { checkLocalStorage } = useContext(UserContext);
-  const { clientState } = useContext(ClientsContext);
-  useEffect(() => { checkLocalStorage(); console.log('App', clientState.client); }, []);
+  useEffect(() => { checkLocalStorage(); }, []);
 
   return (
     <Routes>
@@ -24,8 +20,6 @@ function App() {
       <Route path="/admin/users" element={<PrivateRoute />} />
       <Route path="/admin/notifications" element={<NotificationsList />} />
       <Route path="/details/:idClient" element={<ClientDetails />} />
-      <Route path="/tab" element={<ResponsiveExample />} />
-      <Route path="/tabn" element={<DarkExample />} />
     </Routes>
   );
 }

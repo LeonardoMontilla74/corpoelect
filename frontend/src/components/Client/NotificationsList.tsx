@@ -1,6 +1,8 @@
 import { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import { ListGroup } from 'react-bootstrap';
+import Card from 'react-bootstrap/Card';
 import ClientsContext from '../../context/Clients/ClientsContext';
 import UserContext from '../../context/Users/UserContext';
 import NavBar from '../NavBar';
@@ -34,43 +36,60 @@ function NotificationsList() {
     <>
       <NavBar />
       <main className="container">
-        <div className="row">
+        <div className="row justify-content-center">
           {
             notifications?.length
               ? (
                 notifications?.map((n) => (
-                  <div
+
+                  <Card
                     key={n.idNotification}
-                    className="col-sm-10 col-md-5 col-lg-3 border rounded-2 m-3 p-3 card bg-dark"
+                    className="text-black text-center col-sm-10 col-md-4 col-lg-3 m-1"
+                    style={{ minWidth: '22rem' }}
                   >
-                    <div className="container">
-                      {`Cliente: ${n.Clients?.[0].NOMBRE}`}
+                    <Card.Body>
+                      <Card.Title>{n.Clients?.[0].NOMBRE}</Card.Title>
                       <Link
                         style={{ textDecoration: 'none' }}
                         to={`/details/${n.idClient}`}
-                        className="border rounded-2 m-3 p-3 card bg-dark"
                       >
                         Ver detalles del cliente
                       </Link>
-                    </div>
-                    <p>{`Creada por: ${n.userName}`}</p>
-                    <p>{`Tipo de reclamo: ${n.type}`}</p>
-                    <p>{`Descripción: ${n.desc}`}</p>
-                    <p>{`Estado: ${n.statusNotification}`}</p>
-                    <button
-                      type="button"
-                      className="btn btn-warning m-2"
-                    >
-                      Cambiar estado
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-danger m-2"
-                      onClick={() => handleDelete(n.idNotification)}
-                    >
-                      Borrar
-                    </button>
-                  </div>
+                      <Card.Body>
+                        <ListGroup variant="flush">
+                          <ListGroup.Item>
+                            <strong>Creada por: </strong>
+                            {n.userName}
+                          </ListGroup.Item>
+                          <ListGroup.Item>
+                            <strong>Tipo de reclamo: </strong>
+                            {n.type}
+                          </ListGroup.Item>
+                          <ListGroup.Item>
+                            <strong>Descripción: </strong>
+                            {n.desc}
+                          </ListGroup.Item>
+                          <ListGroup.Item>
+                            <strong>Estado: </strong>
+                            {n.statusNotification}
+                          </ListGroup.Item>
+                        </ListGroup>
+                      </Card.Body>
+                      <button
+                        type="button"
+                        className="btn btn-warning m-2"
+                      >
+                        Cambiar estado
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-danger m-2"
+                        onClick={() => handleDelete(n.idNotification)}
+                      >
+                        Borrar
+                      </button>
+                    </Card.Body>
+                  </Card>
                 ))
               )
               : (

@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Table } from 'react-bootstrap';
 import ClientsContext from '../../context/Clients/ClientsContext';
 
 function ClientsList() {
@@ -8,59 +9,76 @@ function ClientsList() {
   const { error } = clientState;
   const numberClients = client?.length;
 
-  function dowloadItems() {
+  /*  function dowloadItems() {
     localStorage.setItem('localClient', JSON.stringify(client));
-  }
+  } */
 
   return (
-    <div className="container-fluid">
-      <div>{numberClients ? <h4>{`Se encontró ${numberClients}`}</h4> : null}</div>
-      <div className="row">
+    <div className="container">
+      <div>
         {
-          client
-            ? client?.map((c) => (
-              <Link
-                key={c.idClient}
-                style={{ textDecoration: 'none' }}
-                to={`/details/${c.idClient}`}
-                className="text-white col-sm-11 col-md-5 col-lg-3 card border-2 shadow m-3 bg-dark"
-              >
-                <span>
-                  Cliente:
-                  {' '}
-                  {c.NOMBRE}
-                </span>
-                <span>
-                  Contrato:
-                  {' '}
-                  {c.CONTRATO}
-                </span>
-                <span>
-                  Deuda:
-                  {' '}
-                  {c.DEUDA}
-                </span>
-                {
-                  c.Notifications?.length
-                    ? <p className="text-danger">Tiene una notificación pendiente</p>
-                    : null
-                }
-              </Link>
-            ))
-            : <h4>{error?.msg}</h4>
+          numberClients
+            ? (
+              <>
+                <h4 className="m-3 p-3">{`${numberClients} resultados`}</h4>
+                <Table
+                  striped
+                  bordered
+                  hover
+                  variant="dark"
+                >
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Nombre</th>
+                      <th>Cédula o RIF</th>
+                      <th>Contrato</th>
+                      <th>Deuda</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      client?.map((c, index) => (
+                        <tr
+                          key={c.idClient}
+                        >
+                          <td>{index + 1}</td>
+                          <td>
+                            <Link
+                              to={`/details/${c.idClient}`}
+                              className="text-white"
+                              style={{ textDecoration: 'none' }}
+                            >
+                              <td>
+                                {c.NOMBRE}
+                                {
+                                  c.Notifications?.length
+                                    ? <h6 className="text-danger">Tiene un reclamo pendiente</h6>
+                                    : null
+                                }
+                              </td>
+                            </Link>
+                          </td>
+                          <td>{c.DEVLOC}</td>
+                          <td>{c.CONTRATO}</td>
+                          <td>{c.DEUDA}</td>
+                        </tr>
+                      ))
+                    }
+                  </tbody>
+                </Table>
+                {/*  <button
+                  type="button"
+                  className="btn btn-outline-success"
+                  onClick={dowloadItems}
+                >
+                  Descargar
+                </button> */}
+              </>
+            )
+
+            : <h4 className="m-3 p-3 text-danger">{error?.msg}</h4>
         }
-      </div>
-      <div className="container">
-        {client?.length ? (
-          <button
-            type="button"
-            className="btn btn-outline-success"
-            onClick={dowloadItems}
-          >
-            Descargar
-          </button>
-        )
-          : null}
       </div>
     </div>
   );
