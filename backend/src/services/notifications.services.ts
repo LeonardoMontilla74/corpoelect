@@ -1,11 +1,19 @@
+import { Op } from 'sequelize';
 import Clients from '../models/Clients';
 import Notifications from '../models/Notifications';
 import { NotificationModel } from '../types';
+import handleError from '../utils/handleError';
 
-export const getAllNotification = async () => {
-  const notifications: unknown = await Notifications.findAll({ include: { model: Clients } });
-  if (notifications) return notifications as NotificationModel[];
-  return { msg: 'No se encontraron notificaciones' };
+export const getAllNotification = async (param: string, value: string) => {
+  const notifications = await Notifications.findAll({
+    where: {
+      [param]: {
+        [Op.substring]: [value],
+      },
+    },
+    include: Clients,
+  });
+  return notifications.length ? notifications : handleError('No se encontraron notificaciones');
 };
 
 export const createNotification = async ({
@@ -22,7 +30,9 @@ export const createNotification = async ({
   return { msg: 'No se pudo crear la notificación' };
 };
 
-export const updateNotification = async (idNotification: number, statusNotification: string) => {
+export const updateNotification = async (
+  { idNotification, statusNotification }: NotificationModel,
+) => {
   const notification = await Notifications.update(
     { statusNotification },
     { where: { idNotification } },

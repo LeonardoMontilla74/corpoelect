@@ -7,6 +7,7 @@ import StoreProvider from './context/Users/StoreProvider';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import ClientsStoreProvider from './context/Clients/ClientsStoreProvider';
+import NotifStoreProvider from './context/Notifications/NotifStoreProvider';
 
 axios.defaults.baseURL = 'http://localhost:4000';
 
@@ -18,7 +19,9 @@ root.render(
     <BrowserRouter>
       <StoreProvider>
         <ClientsStoreProvider>
-          <App />
+          <NotifStoreProvider>
+            <App />
+          </NotifStoreProvider>
         </ClientsStoreProvider>
       </StoreProvider>
     </BrowserRouter>

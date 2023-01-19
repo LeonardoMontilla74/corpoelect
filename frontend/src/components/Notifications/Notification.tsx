@@ -4,8 +4,8 @@ import {
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
-import ClientsContext from '../../context/Clients/ClientsContext';
 import UserContext from '../../context/Users/UserContext';
+import NotificationContext from '../../context/Notifications/NotificationContext';
 
 function Notification() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function Notification() {
   const { user } = userState;
   const { token } = userState;
 
-  const { createNotification } = useContext(ClientsContext);
+  const { createNotification } = useContext(NotificationContext);
 
   const [inputs, setInputs] = useState({ type: '', desc: '' });
   const [msg, setMsg] = useState('');

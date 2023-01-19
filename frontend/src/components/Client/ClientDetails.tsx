@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ClientsContext from '../../context/Clients/ClientsContext';
-import Notification from './Notification';
+import Notification from '../Notifications/Notification';
 import UserContext from '../../context/Users/UserContext';
 import NavBar from '../NavBar';
 

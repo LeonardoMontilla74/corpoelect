@@ -7,7 +7,7 @@ import {
 
 const router = Router();
 
-router.get('/', authorizateRoute, getNotications);
+router.post('/', authorizateRoute, getNotications);
 
 router.post('/create', checkToken, createNotifications);
 

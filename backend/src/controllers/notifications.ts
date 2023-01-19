@@ -7,7 +7,9 @@ import {
 // GET => http://localhost:4000/notifications headers (token ADMIN)
 export const getNotications = async (req: Request, res: Response) => {
   try {
-    const notifications = await getAllNotification();
+    const { param, value } = req.body;
+    if (!param) return res.status(200).json(handleError('Necesita un parametro de busqueda'));
+    const notifications = await getAllNotification(param, value);
     return res.send(notifications);
   } catch (e) {
     return res.status(500).json(handleError('ERROR_CONTROLLER_NOTIFICATIONS', e));
@@ -28,8 +30,8 @@ export const createNotifications = async (req: Request, res: Response) => {
 // PUT => http://localhost:4000/notifications/update  body (status)
 export const updateNotications = async (req: Request, res: Response) => {
   try {
-    const { idNotification, statusNotification } = req.body;
-    const result = await updateNotification(idNotification, statusNotification);
+    const notification = req.body;
+    const result = await updateNotification(notification);
     return res.send(result);
   } catch (e) {
     return res.status(500).json(handleError('ERROR_CONTROLLER_NOTIFICATIONS', e));

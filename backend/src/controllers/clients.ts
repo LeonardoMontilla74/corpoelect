@@ -6,7 +6,7 @@ import { allClients, getClient, postGPS } from '../services/clients.services';
 export const getAllClients = async (req: Request, res: Response) => {
   try {
     const { param, value } = req.body;
-    if (!param) return res.status(404).json(handleError('Necesita un parametro de busqueda'));
+    if (!param) return res.status(200).json(handleError('Necesita un parametro de busqueda'));
     const result = await allClients(param, value);
     return res.send(result);
   } catch (e) {

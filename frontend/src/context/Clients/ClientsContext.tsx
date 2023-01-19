@@ -5,7 +5,6 @@ export const CLIENTS_STATE: ClientsState = {
   client: [],
   clientDetails: undefined,
   error: { msg: '' },
-  notifications: [],
 };
 
 const ClientsContext = createContext({} as ClientContext);

@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useState } from 'react';
 import ClientsContext, { CLIENTS_STATE } from './ClientsContext';
 import { ChildrenProps } from '../../types';
-import { NotificationModel } from '../../../../backend/src/types';
 
 function ClientsStoreProvider({ children }: ChildrenProps) {
   const [clientState, setClientState] = useState(CLIENTS_STATE);
@@ -33,37 +32,6 @@ function ClientsStoreProvider({ children }: ChildrenProps) {
     }
   }
 
-  async function createNotification(token: string, notification: NotificationModel) {
-    const result = await axios.post('notifications/create', { notification }, { headers: { token } });
-    return result.data.msg;
-  }
-
-  async function getAllNotifications(token: string) {
-    const result = await axios.get('/notifications', { headers: { token } });
-    setClientState({ ...clientState, notifications: result.data });
-  }
-
-  async function updateNotification(token: string, idNotification: number, status: string) {
-    const result = await axios.put(
-      '/notifications/update',
-      { idNotification, status },
-      { headers: { token } },
-    );
-    setClientState({ ...clientState, error: result.data.msg });
-    getAllNotifications(token);
-  }
-
-  async function deleteNotification(token: string, idNotification: number) {
-    axios.delete(
-      '/notifications/delete',
-      {
-        headers: { token },
-        data: { idNotification },
-      },
-    );
-    getAllNotifications(token);
-  }
-
   function cleanClients() {
     setClientState(CLIENTS_STATE);
     localStorage.removeItem('localClient');
@@ -76,10 +44,6 @@ function ClientsStoreProvider({ children }: ChildrenProps) {
       getClient,
       findClientById,
       cleanClients,
-      createNotification,
-      getAllNotifications,
-      updateNotification,
-      deleteNotification,
     }}
     >
       {children}

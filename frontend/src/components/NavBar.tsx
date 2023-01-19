@@ -5,16 +5,22 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import UserContext from '../context/Users/UserContext';
 import ClientsContext from '../context/Clients/ClientsContext';
+import NotificationContext from '../context/Notifications/NotificationContext';
 
 function NavBar() {
   const { userState, cleanUsers } = useContext(UserContext);
-  const { cleanClients } = useContext(ClientsContext);
   const { name, rol } = userState.user;
+
+  const { cleanClients } = useContext(ClientsContext);
+
+  const { cleanNotifications } = useContext(NotificationContext);
+
   const navigate = useNavigate();
 
   function closeSesion() {
     cleanClients();
     cleanUsers();
+    cleanNotifications();
     navigate('/');
   }
 
