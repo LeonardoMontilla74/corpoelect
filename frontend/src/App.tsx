@@ -9,21 +9,23 @@ import NotificationsList from './components/Client/NotificationsList';
 import UserContext from './context/Users/UserContext';
 import ResponsiveExample from './components/Table';
 import DarkExample from './components/Tablenegara';
+import ClientsContext from './context/Clients/ClientsContext';
 
 function App() {
   const { checkLocalStorage } = useContext(UserContext);
-  useEffect(() => { checkLocalStorage(); }, []);
+  const { clientState } = useContext(ClientsContext);
+  useEffect(() => { checkLocalStorage(); console.log('App', clientState.client); }, []);
 
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route path="/tab" element={<ResponsiveExample />} />
-      <Route path="/tabn" element={<DarkExample />} />
       <Route path="/register" element={<Register />} />
       <Route path="/home" element={<Home />} />
       <Route path="/admin/users" element={<PrivateRoute />} />
       <Route path="/admin/notifications" element={<NotificationsList />} />
       <Route path="/details/:idClient" element={<ClientDetails />} />
+      <Route path="/tab" element={<ResponsiveExample />} />
+      <Route path="/tabn" element={<DarkExample />} />
     </Routes>
   );
 }

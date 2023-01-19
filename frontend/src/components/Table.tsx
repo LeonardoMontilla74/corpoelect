@@ -1,9 +1,12 @@
 /* eslint-disable react/no-array-index-key */
+import { useContext } from 'react';
 import Table from 'react-bootstrap/Table';
+import ClientsContext from '../context/Clients/ClientsContext';
 
 function ResponsiveExample() {
+  const { clientState } = useContext(ClientsContext);
   return (
-    <Table responsive>
+    <Table responsive className="container-full border text-white">
       <thead>
         <tr>
           <th>#</th>
@@ -15,11 +18,11 @@ function ResponsiveExample() {
       <tbody>
         <tr>
           <td>1</td>
-          {Array.from({ length: 12 }).map((_, index) => (
-            <td key={index}>
+          {clientState.client?.map((c) => (
+            <td key={c.idClient}>
               Table cell
               {' '}
-              {index}
+              {c.NOMBRE}
             </td>
           ))}
         </tr>

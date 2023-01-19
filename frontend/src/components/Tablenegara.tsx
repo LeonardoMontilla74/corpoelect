@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import Table from 'react-bootstrap/Table';
+import ClientsContext from '../context/Clients/ClientsContext';
 
 function DarkExample() {
+  const { clientState } = useContext(ClientsContext);
+  const { client } = clientState;
   return (
     <Table striped bordered hover variant="dark">
       <thead>
@@ -13,10 +17,9 @@ function DarkExample() {
       </thead>
       <tbody>
         <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
+          {client?.map((c) => (
+            <td key={c.idClient}>{c.NOMBRE}</td>
+          ))}
         </tr>
         <tr>
           <td>2</td>
