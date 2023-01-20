@@ -9,7 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import ClientsStoreProvider from './context/Clients/ClientsStoreProvider';
 import NotifStoreProvider from './context/Notifications/NotifStoreProvider';
 
-axios.defaults.baseURL = 'https://corpoelect-production.up.railway.app/';
+const URL = process.env.REACT_APP_URL;
+
+axios.defaults.baseURL = URL;
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

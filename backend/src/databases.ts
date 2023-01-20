@@ -10,28 +10,4 @@ const sequelize = new Sequelize(
   { logging: false, native: false },
 );
 
-/*
-const sequelize = new Sequelize({
-  database: DB_NAME,
-  dialect: 'postgres',
-  host: DB_HOST,
-  port: Number(DB_PORT),
-  username: DB_USER,
-  password: DB_PASS,
-  pool: {
-    max: 3,
-    min: 1,
-    idle: 10000,
-  },
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-    keepAlive: true,
-  },
-  ssl: true,
-});
-*/
-
 export default sequelize;

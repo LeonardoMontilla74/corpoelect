@@ -9,10 +9,6 @@ function ClientsList() {
   const { error } = clientState;
   const numberClients = client?.length;
 
-  /*  function dowloadItems() {
-    localStorage.setItem('localClient', JSON.stringify(client));
-  } */
-
   return (
     <div className="container">
       <div>
@@ -68,13 +64,6 @@ function ClientsList() {
                     }
                   </tbody>
                 </Table>
-                {/*  <button
-                  type="button"
-                  className="btn btn-outline-success"
-                  onClick={dowloadItems}
-                >
-                  Descargar
-                </button> */}
               </>
             )
 

@@ -4,14 +4,14 @@ import ClientDashboard from './ClientDashboard';
 
 function CheckPermision() {
   const { userState } = useContext(UserContext);
-  const { auth } = userState.user;
+  const { auth, name } = userState.user;
 
   return (
-    <main className="container">
+    <main className="container-fluid">
       {
         auth
           ? <ClientDashboard />
-          : <p>Ahora ponte en contacto con el Administrador del sitio</p>
+          : <h4>{`Hola ${name}, ahora ponte en contacto con el Administrador del sitio`}</h4>
       }
     </main>
   );

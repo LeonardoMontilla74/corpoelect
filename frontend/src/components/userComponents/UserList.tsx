@@ -72,7 +72,7 @@ function UserList({
           className="form-select form-select-sm"
           aria-label="Cambiar rol de usuario"
         >
-          <option defaultValue="user">Elegir rol:</option>
+          <option defaultValue="user">Elegir cargo:</option>
           <option value="admin">Administrador</option>
           <option value="user">Usuario</option>
         </select>
