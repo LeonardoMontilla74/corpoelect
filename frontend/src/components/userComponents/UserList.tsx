@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import { User } from '../../../../backend/src/types';
 import UserContext from '../../context/Users/UserContext';
+import { User } from '../../types';
 
 function UserList({
   idUser, name, rol, auth,

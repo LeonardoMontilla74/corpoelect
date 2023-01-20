@@ -1,4 +1,14 @@
-import { User, MsgError, NotificationModel } from '../../../backend/src/types';
+export type User = {
+  idUser?: number
+  name: string
+  password: string | number
+  rol?: 'admin' | 'user'
+  auth?: boolean
+}
+
+export type MsgError = {
+  msg: string
+}
 
 export type InitialState = {
   user: User
@@ -81,6 +91,17 @@ export type ClientContext = {
 }
 
 // ----------------NOTIFICATIONS --------------------
+export type NotificationModel = {
+  idNotification: number
+  idClient: number
+  userName: string
+  type: string
+  desc: string
+  statusNotification: string
+  createdAt?: string
+  updatedAt?: string
+  Clients?: Client[]
+}
 
 export type NotificationState = {
   notification?: NotificationModel,

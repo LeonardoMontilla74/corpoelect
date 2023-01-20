@@ -26,5 +26,6 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'jsx-a11y/no-autofocus': 'off',
+    'no-use-before-define': 'off',
   },
 };
