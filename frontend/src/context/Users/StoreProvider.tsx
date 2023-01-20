@@ -2,8 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext, { INITIAL_STATE } from './UserContext';
-import { ChildrenProps } from '../../types';
-import { User, MsgError } from '../../../../backend/src/types';
+import { ChildrenProps, User, MsgError } from '../../types';
 
 function StoreProvider({ children }: ChildrenProps) {
   const navigate = useNavigate();

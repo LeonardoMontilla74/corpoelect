@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { ChildrenProps } from '../../types';
-import { NotificationModel } from '../../../../backend/src/types';
+import { ChildrenProps, NotificationModel } from '../../types';
 import NotificationContext, { NOTIFICATION_STATE } from './NotificationContext';
 
 function NotifStoreProvider({ children }: ChildrenProps) {
